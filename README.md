@@ -112,7 +112,7 @@ căw24 oŋ͡m33_ta3 kuŋ͡m35g viən33 cɯə33 biət45
 
 ## Notes
 
-All non-alphanumeric characters in the input are stripped prior to processing (unless the `--tokenize`` option is selected, in which case `-` and `_` will be retained in the output). 
+All non-alphanumeric characters in the input are stripped prior to processing (unless the `--tokenize` option is selected, in which case `-` and `_` will be retained in the output). 
 
 Any input containing non-Vietnamese orthography, or series of characters not conforming to Vietnamese phonotactics, will be braced in the output, e.g.
 
