@@ -113,6 +113,13 @@ enter an interactive mode allowing you to enter UTF-8
 Vietnamese orthography on the command line. When you are done,
 send `EOF` (Ctrl-D) to get the output.
 
+The `--tokenize`` flag is useful if you are processing an older source in which morphemes are separated by hyphens, and you wish to retain the hyphens in your output, or if you are processing the output of e.g. [vnTokenizer](http://mim.hus.vnu.edu.vn/phuonglh/softwares/vnTokenizer):
+
+```
+[user@terminal]$ python vPhon.py -d N -t test/tokenized.txt 
+căw24 oŋ͡m33_ta3 kuŋ͡m35g viən33 cɯə33 biət45
+```
+
 ## Notes
 
 All non-alphanumeric characters in the input are stripped
