@@ -23,17 +23,15 @@ This implementation currently uses the first approach, meaning that many non-con
 
 ### Length
 
-Length is not represented excepting the phonemic length between the vowel pairs â/ơ and ă/a. The long variants, being unmarked, 
-are not marked with a diacritic; the short vowels â and ă are transcribed as [ɤ̆] and [ă], respectively. Orthographic ô, ôô
-are both transcribed as /o/; similarly, o, oo are both transcribed as /ɔ/.
+Length is not represented excepting the phonemic length between the vowel pairs â/ơ and ă/a. The long variants, being unmarked, are not marked with a diacritic; the short vowels *â* and *ă* are transcribed as [ɤ̆] and [ă], respectively. Orthographic *ô*, *ôô* are both transcribed as /o/; similarly, *o, oo* are both transcribed as /ɔ/.
 
 ### Vowels
 
-Segmental correspondences follow Thompson (1965: 98-103), Cao (1997: 126). vPhon assumes 11 nuclei (following Nguyễn 1998, cf. Cao 1998: 96-102) and 3 diphthongs /iə uə ɯə/; this decision was made to try and remain as agnostic as possible regarding the actual phonetic values of these segments. Monopthongization of labial-final diphthongs is represented for the Southern dialects (Thompson 1965: 86; Hoàng 1998: 174 ff.).
+Segmental correspondences follow Thompson (1965: 98-103), Cao (1997: 126). vPhon assumes 11 nuclei (following Nguyễn 1998, cf. Cao 1998: 96-102) and 3 diphthongs /iə uə ɯə/; this decision was made to try and remain as agnostic as possible regarding the actual phonetic values of these segments. Monopthongization of labial-final diphthongs is represented for the Southern dialects (Thompson 1965: 86; Hoàng 1998: 174 *ff*.).
 
 ### Finals
 
-By default, vPhon does not recognize final palatal segments /c ɲ/, as their values may be predicted from the preceding vocalic segments.  However, the -p flag causes palatal /c ɲ/ codas to be output (Hoàng 1989: 172ff; cf. Cao 1998: 88-102).
+By default, vPhon does not recognize final palatal segments /c ɲ/, as their values may be predicted from the preceding vocalic segments.  However, the `-p` flag causes palatal /c ɲ/ codas to be output (Hoàng 1989: 172 *ff*.; cf. Cao 1998: 88-102).
 
 As of version 0.2.2, final labialized allophones of /ŋ k/ are represented as /ŋ͡m k͡p/.
 
@@ -50,7 +48,7 @@ hỏi|312|312|214
 ngã|35g|312|214
 nặng|21/g|21g|212
 
-vPhon also provides an option (given the `-6` flag) to return integer values for tones given in Phạm 2001 (59):
+vPhon also provides an option (given the `-6` flag) to return integer values for tones given in e.g. Phạm (2001, 59):
 
 | Name  | Number |
 | ----- | --- |
@@ -73,10 +71,10 @@ the `string`, `StringIO`, and `optparse` modules, all of which should come stand
 
 ## Usage
 
-vPhon takes an obligatory option flag -d, --dialect, specifying the dialect correspondence set to be used for phonetization
+vPhon takes an obligatory option flag `-d, --dialect`, specifying the dialect correspondence set to be used for phonetization
 ([N]orthern, [C]entral, or [S]outhern). The correspondence files may be found in the `Rules/` directory.
 
-vPhon also takes, as an optional argument, a stream of UTF-8 text to be phonetized. If you have a file called "tuoi.txt",
+vPhon also takes, as an optional argument, a stream of UTF-8 text to be phonetized. If you have a file called `tuoi.txt`,
 for example, and want to create Southern-dialect IPA from it, either of the following will work:
 
 ```
@@ -84,7 +82,7 @@ for example, and want to create Southern-dialect IPA from it, either of the foll
 > cat tuoi.txt | python vPhon.py --dialect Southern
 ```
 
-Other optional flags can be seen by using the -h, --help flags:
+Other optional flags can be seen by using the `-h, --help` flags:
 
 ```
 [user@terminal]$ python vPhon.py -help
@@ -115,13 +113,12 @@ căw24 oŋ͡m33_ta3 kuŋ͡m35g viən33 cɯə33 biət45
 
 ## Notes
 
-All non-alphanumeric characters in the input are stripped
-prior to processing.
+All non-alphanumeric characters in the input are stripped prior to processing (unless the `--tokenize`` option is selected, in which case `-` and `_` will be retained in the output). 
 
 Any input containing non-Vietnamese orthography, or series of characters not conforming to Vietnamese phonotactics, will be braced in the output, e.g.
 
 ```
-[These] [are] [not] [licit] [words]
+[These] [are] [not] [licit] [words] [20mi] [10-15km] [etc]
 ```
 
 Try running the examples in the `test/` directory to get a better idea of this behavior.
@@ -144,7 +141,7 @@ Cao, Xuân Hạo. (1998). *Tiếng Việt – Mấy vấn đề ngữ âm, ngữ
 
 Emeneau, M. B. (1951). *Studies in Vietnamese (Annamese) grammar*. University of California publications in linguistics (Vol. 8). Berkeley: University of California Press.
 
-Hoàng, Thị Châu. (1989). *Tiếng Việt trên các miền đất nước: Phương ngữ học*. Hà Nội: Khoa học xã hội.
+Hoàng, Thị Châu. (1989). *Tiếng Việt trên các miền đất nước: Phương ngữ học*. Hà Nội: Khoa học Xã hội.
 
 Michaud, Alexis. (2004). Final consonants and glottalization: New perspectives from Hanoi Vietnamese. *Phonetica*, 61, 119-146.
 
@@ -154,6 +151,6 @@ Nguyễn, Văn Lợi & Edmondson, Jerold A. (1997). Tones and voice quality in m
 
 Phạm, Andrea. 2001. *Vietnamese tone: a new analysis*. University of Toronto dissertation. [Reprinted by Routledge, 2003.]
 
-Thompson, Laurence E. (1965). *A Vietnamese reference grammar*. Seattle: University of Washington Press. Honolulu: University of Hawaii Press.
+Thompson, Laurence E. (1965). *A Vietnamese reference grammar*. Seattle: University of Washington Press.
 
 Vũ, T. P. (1982). Phonetic properties of Vietnamese tones across dialects. In *Papers in Southeast Asian Linguistics Volume 8 - Tonation*, ed. D. Bradley. Sydney, Australian National University, pp. 55-75.
