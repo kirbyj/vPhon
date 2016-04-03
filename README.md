@@ -136,6 +136,10 @@ braced in the output, e.g.
 Try running the examples in the `test/` directory to get a
 better idea of this behavior.
 
+## Alternatives
+
+[ADRPhone](http://www.mica.edu.vn/ADRPhone) is a lightweight, standalone phonetizer for Vietnamese written in standard C by Nguyễn Thị Minh Tuyền and Mathias Rossignol. It has many of the same functions as vPhon, but helpfully outputs XML as well. Worth a look.
+
 ## Thank You
 
 Thanks to Doug Cooper, Paul Sidwell, Marc Brunell, and
