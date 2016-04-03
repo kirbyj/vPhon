@@ -23,7 +23,7 @@ This implementation currently uses the first approach, meaning that many non-con
 
 ### Length
 
-Length is not represented excepting the phonemic length between the vowel pairs â/ơ and ă/a. The long variants, being unmarked, are not marked with a diacritic; the short vowels *â* and *ă* are transcribed as [ɤ̆] and [ă], respectively. Orthographic *ô*, *ôô* are both transcribed as /o/; similarly, *o, oo* are both transcribed as /ɔ/.
+Length is not explicitly represented excepting the phonemic length between the vowel pairs *â/ơ* and *ă/a*. The long variants are not marked with a diacritic; the short vowels *â* and *ă* are transcribed as [ɤ̆] and [ă], respectively. Orthographic *ô*, *ôô* are both transcribed as /o/; similarly, *o, oo* are both transcribed as /ɔ/.
 
 ### Vowels
 
@@ -59,7 +59,7 @@ vPhon also provides an option (given the `-6` flag) to return integer values for
 | sắc   | 5   |
 | nặng  | 6   |
 
-If passed the ```-8``` flag, *sắc* and *nặng* tones in closed syllables are returned as 5b and 6b, respectively (Cao 1998; Michaud 2004; Phạm 2001).
+If passed the `-8` flag, *sắc* and *nặng* tones in closed syllables are returned as 5b and 6b, respectively (Cao 1998; Michaud 2004; Phạm 2001).
 
 Note that for the Central and Southern dialects, the relationship of tone to number is slightly different. Orthographic *hỏi* and *ngã*
 tones are both phonetized as 4 when vPhon is passed the `-s` or `-c` flags, representing the (phonological) mergers present in those dialects (Hoàng 1989: 212 *ff.*)
@@ -71,11 +71,10 @@ the `string`, `StringIO`, and `optparse` modules, all of which should come stand
 
 ## Usage
 
-vPhon takes an obligatory option flag `-d, --dialect`, specifying the dialect correspondence set to be used for phonetization
-([N]orthern, [C]entral, or [S]outhern). The correspondence files may be found in the `Rules/` directory.
+vPhon takes an obligatory `-d, --dialect` option, specifying the dialect correspondence set to be used for phonetization
+([N]orthern, [C]entral, or [S]outhern). The correspondence files may be found in the `Rules/` directory, and modified as necessary.
 
-vPhon also takes, as an optional argument, a stream of UTF-8 text to be phonetized. If you have a file called `tuoi.txt`,
-for example, and want to create Southern-dialect IPA from it, either of the following will work:
+vPhon also takes, as an optional argument, a stream of UTF-8 text to be phonetized. If you have a file called `tuoi.txt`, for example, and want to create Southern-dialect IPA from it, either of the following will work:
 
 ```
 > python vPhon.py -d S tuoi.txt
