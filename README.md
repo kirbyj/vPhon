@@ -19,7 +19,7 @@ Note that an IPA representation can take one of two alternative starting points:
 - a phonemic representation that clarifies minimal contrasts,
 - a phonetic representation that reflects pronunciation details.
 
-This implementation currently uses the first approach, meaning that many non-contrastive details are not represented. However, pronunciations where the citation forms differ from dialect to dialect are given, e.g. anh > /ɛŋ/ (Northern), /an/ (Southern).
+This implementation currently uses the first approach, meaning that many non-contrastive details are not represented. However, pronunciations where the citation forms differ from dialect to dialect are given, e.g. *anh* > /ɛŋ/ (Northern), /an/ (Southern).
 
 ### Length
 
@@ -69,19 +69,15 @@ tones are both phonetized as 4 when vPhon is passed the `-s` or `-c` flags, repr
 ## Installation
 
 No installation is required. You must have a working version of Python (>= 2.4) installed and in your path. vPhon requires
-the string, StringIO, and optparse modules, all of which should come standard with Python >= 2.4.x.
+the `string`, `StringIO`, and `optparse` modules, all of which should come standard with Python >= 2.4.x.
 
 ## Usage
 
-vPhon takes an obligatory option flag -d, --dialect, specifying
-the dialect correspondence set to be used for phonetization
-([N]orthern, [C]entral, or [S]outhern). The correspondence files
-may be found in the `Rules/` directory.
+vPhon takes an obligatory option flag -d, --dialect, specifying the dialect correspondence set to be used for phonetization
+([N]orthern, [C]entral, or [S]outhern). The correspondence files may be found in the `Rules/` directory.
 
-vPhon also takes, as an optional argument, a stream of UTF-8
-text to be phonetized. If you have a file called "tuoi.txt",
-for example, and want to create Southern-dialect IPA from
-it, either of the following will work:
+vPhon also takes, as an optional argument, a stream of UTF-8 text to be phonetized. If you have a file called "tuoi.txt",
+for example, and want to create Southern-dialect IPA from it, either of the following will work:
 
 ```
 > python vPhon.py -d S tuoi.txt
@@ -108,10 +104,7 @@ Options:
 
 By default, output is sent to STDOUT.
 
-If no argument is supplied on the command line, vPhon will
-enter an interactive mode allowing you to enter UTF-8
-Vietnamese orthography on the command line. When you are done,
-send `EOF` (Ctrl-D) to get the output.
+If no argument is supplied on the command line, vPhon will enter an interactive mode allowing you to enter UTF-8 Vietnamese orthography on the command line. When you are done, send `EOF` (Ctrl-D) to get the output.
 
 The `--tokenize`` flag is useful if you are processing an older source in which morphemes are separated by hyphens, and you wish to retain the hyphens in your output, or if you are processing the output of e.g. [vnTokenizer](http://mim.hus.vnu.edu.vn/phuonglh/softwares/vnTokenizer):
 
@@ -125,16 +118,13 @@ căw24 oŋ͡m33_ta3 kuŋ͡m35g viən33 cɯə33 biət45
 All non-alphanumeric characters in the input are stripped
 prior to processing.
 
-Any input containing non-Vietnamese orthography, or series
-of characters not conforming to Vietnamese phonotactics, will be
-braced in the output, e.g.
+Any input containing non-Vietnamese orthography, or series of characters not conforming to Vietnamese phonotactics, will be braced in the output, e.g.
 
 ```
 [These] [are] [not] [licit] [words]
 ```
 
-Try running the examples in the `test/` directory to get a
-better idea of this behavior.
+Try running the examples in the `test/` directory to get a better idea of this behavior.
 
 ## Alternatives
 
@@ -142,47 +132,28 @@ better idea of this behavior.
 
 ## Thank You
 
-Thanks to Doug Cooper, Paul Sidwell, Marc Brunell, and
-Mark Alves for many useful comments and suggestions. Any
-errors or inconsistencies are, of course, mine alone, but
-I would love to hear about them.
+Thanks to Doug Cooper, Paul Sidwell, Marc Brunell, and Mark Alves for many useful comments and suggestions. Any errors or inconsistencies are, of course, mine alone, but I would love to hear about them.
 
 ## References
 
-Alves, Mark J. (2007a). "A look at North-Central Vietnamese."
-In SEALS XII, ed. R. Wayland et al., Canberra, Australia.
+Alves, Mark J. (2007a). "A look at North-Central Vietnamese." In *SEALS XII*, ed. R. Wayland et al., Canberra, Australia.
 
-Alves, Mark J. and Nguyễn Duy Hương. (2007b). "Notes on
-Thanh-Chương Vietnamese in Nghệ-an Province". In SEALS VIII,
-ed. M. Alves et al., Canberra, Australia, pp. 1-9.
+Alves, Mark J. and Nguyễn Duy Hương. (2007b). "Notes on Thanh-Chương Vietnamese in Nghệ-an Province". In *SEALS VIII*, ed. M. Alves et al., Canberra, Australia, pp. 1-9.
 
-Cao, Xuân Hạo. (1998). Tiếng Việt – Mấy vấn đề ngữ âm, ngữ pháp
-và ngữ nghĩa, Hà Nội: NXB Giáo dục.
+Cao, Xuân Hạo. (1998). *Tiếng Việt – Mấy vấn đề ngữ âm, ngữ pháp và ngữ nghĩa*. Hà Nội: NXB Giáo dục.
 
-Emeneau, M. B. (1951). Studies in Vietnamese (Annamese) grammar.
-University of California publications in linguistics (Vol. 8).
-Berkeley: University of California Press.
+Emeneau, M. B. (1951). *Studies in Vietnamese (Annamese) grammar*. University of California publications in linguistics (Vol. 8). Berkeley: University of California Press.
 
-Hoàng, Thị Châu. (1989). Tiếng Việt trên các miền đất nước:
-Phương ngữ học. Hà Nội: Khoa học xã hội.
+Hoàng, Thị Châu. (1989). *Tiếng Việt trên các miền đất nước: Phương ngữ học*. Hà Nội: Khoa học xã hội.
 
-Michaud, Alexis. (2004). Final consonants and glottalization: New
-perspectives from Hanoi Vietnamese. Phonetica 61) pp. 119-146.
+Michaud, Alexis. (2004). Final consonants and glottalization: New perspectives from Hanoi Vietnamese. *Phonetica*, 61, 119-146.
 
-Nguyễn, Đình-Hoà. (1997). Vietnamese: Tiếng Việt không son phấn.
-Amsterdam: John Benjamins Publishing Company.
+Nguyễn, Đình-Hoà. (1997). *Vietnamese: Tiếng Việt không son phấn*. Amsterdam: John Benjamins Publishing Company.
 
-Nguyễn, Văn Lợi & Edmondson, Jerold A. (1997). Tones and voice
-quality in modern northern Vietnamese: Instrumental case studies.
-Mon-Khmer Studies, 28, 1-18.
+Nguyễn, Văn Lợi & Edmondson, Jerold A. (1997). Tones and voice quality in modern northern Vietnamese: Instrumental case studies. *Mon-Khmer Studies*, 28, 1-18.
 
-Phạm, Andrea. 2001. Vietnamese tone: a new analysis. University
-of Toronto dissertation. [Reprinted by Routledge, 2003.]
+Phạm, Andrea. 2001. *Vietnamese tone: a new analysis*. University of Toronto dissertation. [Reprinted by Routledge, 2003.]
 
-Thompson, Laurence E. (1991). A Vietnamese reference grammar.
-Seattle: University of Washington Press. Honolulu: University
-of Hawaii Press. (Original work published 1965).
+Thompson, Laurence E. (1965). *A Vietnamese reference grammar*. Seattle: University of Washington Press. Honolulu: University of Hawaii Press.
 
-Vũ, T. P. (1982). Phonetic properties of Vietnamese tones across
-dialects. Papers in Southeast Asian Linguistics. D. Bradley. Sydney,
-Australian National University. 8 - Tonation: 55-75.
+Vũ, T. P. (1982). Phonetic properties of Vietnamese tones across dialects. In *Papers in Southeast Asian Linguistics Volume 8 - Tonation*, ed. D. Bradley. Sydney, Australian National University, pp. 55-75.
