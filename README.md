@@ -122,6 +122,12 @@ Any input containing non-Vietnamese orthography, or series of characters not con
 
 Try running the examples in the `test/` directory to get a better idea of this behavior.
 
+## Citation
+
+If you use vPhon for a project or paper, please cite it as:
+
+    Kirby, James. 2016. vPhon: a Vietnamese phonetizer (version 0.2.5b). Retrieved on <date> from http://github.com/kirbyj/vPhon/.
+    
 ## Alternatives
 
 [ADRPhone](http://www.mica.edu.vn/ADRPhone) is a lightweight, standalone phonetizer for Vietnamese written in standard C by Nguyễn Thị Minh Tuyền and Mathias Rossignol. It has many of the same functions as vPhon, but helpfully outputs XML as well. Worth a look.
