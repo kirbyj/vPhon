@@ -1,7 +1,9 @@
 # vPhon: a Vietnamese phonetizer
 
 Package: vPhon version 0.2.5b
+
 Author: James Kirby <j.kirby@ed.ac.uk>
+
 Web: http://lel.ed.ac.uk/~jkirby
 
 This software takes UTF-8 Vietnamese orthography and returns broad transcription UTF-8 output in the International Phonetic Association (IPA) alphabet for three major dialects of Vietnamese: Northern (Hà Nội), Central (Huế), and Southern (Sài Gòn) speech.
@@ -59,9 +61,9 @@ vPhon also provides an option (given the `-6` flag) to return integer values for
 | sắc   | 5   |
 | nặng  | 6   |
 
-If passed the ```-8``` flag, sắc and nặng tones in closed syllables are returned as 5b and 6b, respectively (Cao 1998; Michaud 2004; Phạm 2001).
+If passed the ```-8``` flag, *sắc* and *nặng* tones in closed syllables are returned as 5b and 6b, respectively (Cao 1998; Michaud 2004; Phạm 2001).
 
-Note that for the Central and Southern dialects, the relationship of tone to number is slightly different. Orthographic hỏi and ngã
+Note that for the Central and Southern dialects, the relationship of tone to number is slightly different. Orthographic *hỏi* and *ngã*
 tones are both phonetized as 4 when vPhon is passed the `-s` or `-c` flags, representing the (phonological) mergers present in those dialects (Hoàng 1989: 212 *ff.*)
 
 ## Installation
@@ -74,7 +76,7 @@ the string, StringIO, and optparse modules, all of which should come standard wi
 vPhon takes an obligatory option flag -d, --dialect, specifying
 the dialect correspondence set to be used for phonetization
 ([N]orthern, [C]entral, or [S]outhern). The correspondence files
-may be found in the Rules/ directory.
+may be found in the `Rules/` directory.
 
 vPhon also takes, as an optional argument, a stream of UTF-8
 text to be phonetized. If you have a file called "tuoi.txt",
@@ -109,7 +111,7 @@ By default, output is sent to STDOUT.
 If no argument is supplied on the command line, vPhon will
 enter an interactive mode allowing you to enter UTF-8
 Vietnamese orthography on the command line. When you are done,
-send EOF (Ctrl-D) to get the output.
+send `EOF` (Ctrl-D) to get the output.
 
 ## Notes
 
