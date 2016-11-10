@@ -179,8 +179,8 @@ def trans(word, dialect, glottal, pham, cao, palatals):
                 #if ton == u'21\u02C0' and cod in ['p', 't', 'k']: # fixed 8 Nov 2016
                 ton = u'21'
 
-            # Modification for sắc in closed syllables (Nothern and Central only)
-            if (dialect == 'n' and ton == u'24') or (dialect == 'c' and ton == u'13'):
+            # Modification for sắc in closed syllables (Northern and Central only)
+            if ((dialect == 'n' and ton == u'24') or (dialect == 'c' and ton == u'13')) and cod in ['p', 't', 'k']:
                 ton = u'45'
 
             # Modification for 8-tone system
