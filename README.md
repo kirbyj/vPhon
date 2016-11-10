@@ -1,10 +1,10 @@
 # vPhon: a Vietnamese phonetizer
 
-Package: vPhon version 0.2.5b
+Package: vPhon version 0.2.6
 
 Author: James Kirby <j.kirby@ed.ac.uk>
 
-Web: http://lel.ed.ac.uk/~jkirby
+Web: https://github.com/kirbyj/vPhon
 
 This software takes UTF-8 Vietnamese orthography and returns broad transcription UTF-8 output in the International Phonetic Association (IPA) alphabet for three major dialects of Vietnamese: Northern (Hà Nội), Central (Huế), and Southern (Sài Gòn) speech.
 
@@ -19,11 +19,11 @@ Note that an IPA representation can take one of two alternative starting points:
 - a phonemic representation that clarifies minimal contrasts,
 - a phonetic representation that reflects pronunciation details.
 
-This implementation currently uses the first approach, meaning that many non-contrastive details are not represented. However, pronunciations where the citation forms differ from dialect to dialect are given, e.g. *anh* > /ɛŋ/ (Northern), /an/ (Southern).
+This implementation currently uses the first approach, meaning that many non-contrastive details are not represented. However, pronunciations where the citation forms differ from dialect to dialect are given, e.g. *anh* > [ɛŋ] (Northern), [an] (Southern).
 
 ### Length
 
-Length is not explicitly represented excepting the phonemic length between the vowel pairs *â/ơ* and *ă/a*. The long variants are not marked with a diacritic; the short vowels *â* and *ă* are transcribed as [ɤ̆] and [ă], respectively. Orthographic *ô*, *ôô* are both transcribed as /o/; similarly, *o, oo* are both transcribed as /ɔ/.
+Length is not explicitly represented excepting the phonemic length between the vowel pairs *â/ơ* and *ă/a*. The long variants are not marked with a diacritic; the short vowels *â* and *ă* are transcribed as [ɤ̆] and [ă], respectively. Orthographic *ô*, *ôô* are both transcribed as [o]; similarly, *o, oo* are both transcribed as [ɔ].
 
 ### Vowels
 
@@ -31,9 +31,9 @@ Segmental correspondences follow Thompson (1965: 98-103), Cao (1997: 126). vPhon
 
 ### Finals
 
-By default, vPhon does not recognize final palatal segments /c ɲ/, as their values may be predicted from the preceding vocalic segments.  However, the `-p` flag causes palatal /c ɲ/ codas to be output (Hoàng 1989: 172 *ff*.; cf. Cao 1998: 88-102).
+By default, vPhon does not recognize final palatal segments [c ɲ], as their values may be predicted from the preceding vocalic segments.  However, the `-p` flag causes palatal [c ɲ] codas to be output (Hoàng 1989: 172 *ff*.; cf. Cao 1998: 88-102).
 
-As of version 0.2.2, final labialized allophones of /ŋ k/ are represented as /ŋ͡m k͡p/.
+As of version 0.2.2, final labialized allophones of /ŋ k/ are represented as [ŋ͡m k͡p].
 
 ###Tones
 
@@ -67,7 +67,7 @@ tones are both phonetized as 4 when vPhon is passed the `-s` or `-c` flags, repr
 ## Installation
 
 No installation is required. You must have a working version of Python (>= 2.4) installed and in your path. vPhon requires
-the `string`, `StringIO`, and `optparse` modules, all of which should come standard with Python >= 2.4.x.
+the `__future__`, `string`, `StringIO`, and `optparse` modules, all of which should come standard with Python >= 2.4.x.
 
 ## Usage
 
@@ -77,7 +77,7 @@ vPhon takes an obligatory `-d, --dialect` option, specifying the dialect corresp
 vPhon also takes, as an optional argument, a stream of UTF-8 text to be phonetized. If you have a file called `tuoi.txt`, for example, and want to create Southern-dialect IPA from it, either of the following will work:
 
 ```
-> python vPhon.py -d S tuoi.txt
+> python vPhon.py -d S < tuoi.txt
 > cat tuoi.txt | python vPhon.py --dialect Southern
 ```
 
@@ -94,6 +94,7 @@ Options:
   -8, --cao             phonetize tones as 1-4 + 5, 5b, 6, 6b
   -p, --palatals        use word-final palatal velars in Northern dialects
   -t, --tokenize        preserve underscores or hyphens in tokenized input
+  -m, --delimit         produce delimited output (e.g., an ninh = .a.n.33. .n.i.ɲ.33.)
   -d DIALECT, --dialect=DIALECT
                         specify dialect region ([N]orthern, [C]entral,
                         [S]outhern)
@@ -110,6 +111,8 @@ The `--tokenize` flag is useful if you are processing an older source in which m
 căw24 oŋ͡m33_ta3 kuŋ͡m35g viən33 cɯə33 biət45
 ```
 
+The `--delimit` flag will produce produce output where each phonetic symbol is separated by user-specified delimiter. If you use this flag, you must also specify a delimiter.
+
 ## Notes
 
 All non-alphanumeric characters in the input are stripped prior to processing (unless the `--tokenize` option is selected, in which case `-` and `_` will be retained in the output). 
@@ -124,7 +127,7 @@ Try running the examples in the `test/` directory to get a better idea of this b
 
 ## Alternatives
 
-[ADRPhone](http://www.mica.edu.vn/ADRPhone) is a lightweight, standalone phonetizer for Vietnamese written in standard C by Nguyễn Thị Minh Tuyền and Mathias Rossignol. It has many of the same functions as vPhon, but helpfully outputs XML as well. Worth a look.
+[ADRPhone](http://www.mica.edu.vn/ADRPhone) is a lightweight, standalone phonetizer for Vietnamese written in standard C by Nguyễn Thị Minh Tuyền and Mathias Rossignol. It has many of the same functions as vPhon, but helpfully outputs XML as well. 
 
 ## Thank You
 
