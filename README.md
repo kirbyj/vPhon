@@ -62,7 +62,7 @@ vPhon also provides an option (given the `-6` flag) to return integer values for
 If passed the `-8` flag, *sắc* and *nặng* tones in closed syllables are returned as 5b and 6b, respectively (Cao 1998; Michaud 2004; Phạm 2001).
 
 Note that for the Central and Southern dialects, the relationship of tone to number is slightly different. Orthographic *hỏi* and *ngã*
-tones are both phonetized as 4 when vPhon is passed the `-s` or `-c` flags, representing the (phonological) mergers present in those dialects (Hoàng 1989: 212 *ff.*)
+tones are both phonetized as 4 when vPhon is passed the `-6` or `-8` flags, representing the (phonological) mergers present in those dialects (Hoàng 1989: 212 *ff.*)
 
 ## Installation
 
