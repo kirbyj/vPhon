@@ -11,9 +11,8 @@
 
 ### Fixed
 - Fixed bug that was treating gì, gĩ... and qùy, qũy...  as non-Viet characters.
-- Fixed bug that was outputing checked syllables with nặng as 21g instead of 21.
-
-
+- Fixed bug that was treating checked syllables with nặng as 21g instead of 21 in Northern and Southern dialects.
+- Fixed bug that was treating sonorant-final syllables with sắc as 45 instead of 24 in Northern and Central dialects.
 
 ## [0.2.5b] - 2016-03-16
 ### Added
