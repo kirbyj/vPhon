@@ -129,7 +129,7 @@ Try running the examples in the `test/` directory to get a better idea of this b
 
 If you use vPhon for a project or paper, please cite it as:
 
-    Kirby, James. 2016. vPhon: a Vietnamese phonetizer (version 0.2.6). Retrieved on <date> from http://github.com/kirbyj/vPhon/.
+    Kirby, James. 2008. vPhon: a Vietnamese phonetizer (version 0.2.6). Retrieved on <date> from http://github.com/kirbyj/vPhon/.
     
 ## Alternatives
 
