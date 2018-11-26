@@ -77,6 +77,17 @@ pip install --index-url https://test.pypi.org/simple/ vPhon
 
 ## Usage
 
+### From within Python
+
+Import vPhon and call the `convert_line()` function like so:
+```
+>>> from vPhon import vPhon
+>>> vPhon.convert_line("Trong Foe một cuộc", dialect="n")
+
+```
+
+### As a standalone script
+
 vPhon takes an obligatory `-d, --dialect` option, specifying the dialect correspondence set to be used for phonetization
 ([N]orthern, [C]entral, or [S]outhern). The correspondence files may be found in the `Rules/` directory, and modified as necessary.
 
