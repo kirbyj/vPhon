@@ -20,9 +20,6 @@
 #
 ###########################################################################
 
-# for python 3-style printing:
-from __future__ import print_function
-
 import sys, codecs, re
 import io  # instead of StringIO for Python 3
 from optparse import OptionParser
@@ -284,7 +281,6 @@ def main():
             ## hack to get rid of single hyphens or underscores
             words = [word for word in words if word!=u'-']
             words = [word for word in words if word!=u'_']
-            print(words)
             for i in range(0,len(words)):
                 word = words[i].strip()
                 ortho += word
