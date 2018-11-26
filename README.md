@@ -73,7 +73,6 @@ vPhon can be installed from pip using:
 <!-- edit this once uploaded to PyPI -->
 ```
 pip install --index-url https://test.pypi.org/simple/ vPhon
-
 ```
 
 ## Usage
