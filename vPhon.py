@@ -29,11 +29,14 @@ def trans(word, dialect, glottal, pham, cao, palatals):
 
     # This looks ugly, but newer versions of python complain about "from x import *" syntax
     if dialect == 'n':
-        from north import onsets, nuclei, codas, tones, onglides, offglides, onoffglides, qu, gi
+        from north import (onsets, nuclei, codas, tones, onglides, offglides,
+                           onoffglides, qu, gi)
     elif dialect == 'c':
-        from central import onsets, nuclei, codas, tones, onglides, offglides, onoffglides, qu, gi
+        from central import (onsets, nuclei, codas, tones, onglides, offglides,
+                             onoffglides, qu, gi)
     elif dialect == 's':
-        from south import onsets, nuclei, codas, tones, onglides, offglides, onoffglides, qu, gi
+        from south import (onsets, nuclei, codas, tones, onglides, offglides,
+                           onoffglides, qu, gi)
 
     if pham or cao:
         if dialect == 'n': from north import tones_p
@@ -217,43 +220,106 @@ def convert(word, dialect, glottal, pham, cao, palatals, delimit):
 
     return seq
 
+def convert_line(line,
+                 dialect='N',
+                 glottal=False,  # prepend glottal stops to onsetless syllables
+                 pham=True,  # tones 1-6
+                 cao=False,  # tones w/ 5b and 6b
+                 palatals=True,  # use word-final palatal velars in Northern dialects
+                 delimit='',  # produce explicitly delimited output
+                 tokenize=False  # if morphemes are tokenized with _
+                 ):
+    compound = u''
+    ortho = u''
+    words = line.split()
+    ## toss len==0 junk
+    words = [word for word in words if len(word)>0]
+    ## hack to get rid of single hyphens or underscores
+    words = [word for word in words if word!=u'-']
+    words = [word for word in words if word!=u'_']
+    for i in range(0,len(words)):
+        word = words[i].strip()
+        ortho += word
+        word = word.strip(punctuation).lower()
+        ## 29.03.16: check if tokenize is true
+        ## if true, call this routine for each substring
+        ## and re-concatenate
+        if (tokenize and '-' in word) or (tokenize and '_' in word):
+            substrings = re.split(r'(_|-)', word)
+            values = substrings[::2]
+            delimiters = substrings[1::2] + ['']
+            ipa = [convert(x, dialect, glottal, pham, cao,
+                           palatals, delimit).strip() for x in values]
+            seq = ''.join(v+d for v,d in zip(ipa, delimiters))
+        else:
+            seq = convert(word, dialect, glottal, pham, cao,
+                          palatals, delimit).strip()
+        # concatenate
+        if len(words) >= 2:
+            ortho += ' '
+        if i < len(words)-1:
+            seq = seq+u' '
+        compound = compound + seq
+
+    ## entire line has been parsed
+    return ortho, compound
+
+
 def main():
     sys.path.append('./Rules')      # make sure we can find the Rules files
-
     usage = 'python vPhon.py <input> -d, --dialect N|C|S'
 
-    glottal = 0
-    pham = 0
-    cao = 0
-    palatals = 0
-    tokenize = 0
-    output_ortho = 0
+    glottal = False
+    pham = False
+    cao = False
+    palatals = False
+    tokenize = False
+    output_ortho = False
     delimit = ''
 
     # Command line options
     parser = OptionParser(usage)
-    parser.add_option('-g', '--glottal', action='store_true', dest='glottal', help='prepend glottal stops to onsetless syllables')
-    parser.add_option('-6', '--pham', action='store_true', dest='pham', help='phonetize tones as 1-6')
-    parser.add_option('-8', '--cao', action='store_true', dest='cao', help='phonetize tones as 1-4 + 5, 5b, 6, 6b')
-    parser.add_option('-p', '--palatals', action='store_true', dest='palatals', help='use word-final palatal velars in Northern dialects')
-    parser.add_option('-t', '--tokenize', action='store_true', dest='tokenize', help='preserve underscores or hyphens in tokenized inputs (e.g., anh_ta = anh1_ta1)')
-    parser.add_option('-o', '--ortho', action='store_true', dest='output_ortho', help='output orthography as well as IPA')
-    parser.add_option('-m', '--delimit', action='store', type='string', dest='delimit', help='produce explicitly delimited output (e.g., bi ca = .b.i.33. .k.a.33.')
-    parser.add_option('-d', '--dialect', action='store', type='string', dest='dialect', help='specify dialect region ([N]orthern, [C]entral, [S]outhern)')
+    parser.add_option('-g', '--glottal',
+                      action='store_true', dest='glottal',
+                      help='prepend glottal stops to onsetless syllables')
+    parser.add_option('-6', '--pham',
+                      action='store_true', dest='pham',
+                      help='phonetize tones as 1-6')
+    parser.add_option('-8', '--cao',
+                      action='store_true', dest='cao',
+                      help='phonetize tones as 1-4 + 5, 5b, 6, 6b')
+    parser.add_option('-p', '--palatals',
+                      action='store_true', dest='palatals',
+                      help='use word-final palatal velars in Northern dialects')
+    parser.add_option('-t', '--tokenize',
+                      action='store_true', dest='tokenize',
+                      help='preserve underscores or hyphens in tokenized inputs '
+                           ' (e.g., anh_ta = anh1_ta1)')
+    parser.add_option('-o', '--ortho',
+                      action='store_true', dest='output_ortho',
+                      help='output orthography as well as IPA')
+    parser.add_option('-m', '--delimit',
+                      action='store', type='string', dest='delimit',
+                      help='produce explicitly delimited output '
+                           '(e.g., bi ca = .b.i.33. .k.a.33.')
+    parser.add_option('-d', '--dialect',
+                      action='store', type='string',
+                      dest='dialect', help='specify dialect region '
+                           '([N]orthern, [C]entral, [S]outhern)')
     (options, args) = parser.parse_args()
 
     if options.glottal:
-        glottal = 1
+        glottal = True
     if options.pham:
-        pham = 1
+        pham = True
     if options.cao:
-        cao = 1
+        cao = True
     if options.palatals:
-        palatals = 1
+        palatals = True
     if options.tokenize:
-        tokenize = 1
+        tokenize = True
     if options.output_ortho:
-        output_ortho = 1
+        output_ortho = True
     if options.delimit:
         delimit = options.delimit[0]
     if options.dialect:
@@ -269,41 +335,13 @@ def main():
 
     # parse the input
     for line in fh:
-        print(line)
         if line =='\n':
             pass
         else:
-            compound = u''
-            ortho = u''
-            words = line.split()
-            ## toss len==0 junk
-            words = [word for word in words if len(word)>0]
-            ## hack to get rid of single hyphens or underscores
-            words = [word for word in words if word!=u'-']
-            words = [word for word in words if word!=u'_']
-            for i in range(0,len(words)):
-                word = words[i].strip()
-                ortho += word
-                word = word.strip(punctuation).lower()
-                ## 29.03.16: check if tokenize is true
-                ## if true, call this routine for each substring
-                ## and re-concatenate
-                if (tokenize and '-' in word) or (tokenize and '_' in word):
-                    substrings = re.split(r'(_|-)', word)
-                    values = substrings[::2]
-                    delimiters = substrings[1::2] + ['']
-                    ipa = [convert(x, dialect, glottal, pham, cao, palatals, delimit).strip() for x in values]
-                    seq = ''.join(v+d for v,d in zip(ipa, delimiters))
-                else:
-                    seq = convert(word, dialect, glottal, pham, cao, palatals, delimit).strip()
-                # concatenate
-                if len(words) >= 2:
-                    ortho += ' '
-                if i < len(words)-1:
-                    seq = seq+u' '
-                compound = compound + seq
-
-            ## entire line has been parsed
+            ortho, compound = convert_line(line,
+                                           dialect, glottal,
+                                           pham, cao, palatals,
+                                           delimit, tokenize)
             if ortho == u'':
                 pass
             else:
@@ -311,7 +349,6 @@ def main():
                 ## print orthography?
                 if output_ortho: print(ortho.encode('utf-8'), end=','),
                 print(compound.encode('utf-8'))
-
     # If we have an open filehandle, close it
     try:
         fh.close()
