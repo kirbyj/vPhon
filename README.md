@@ -70,8 +70,10 @@ tones are both phonetized as 4 when vPhon is passed the `-6` or `-8` flags, repr
 <!-- the `__future__`, `string`, `StringIO`, and `optparse` modules, all of which should come standard with Python >= 2.4.x. -->
 
 vPhon can be installed from pip using:
+<!-- edit this once uploaded to PyPI -->
 ```
-pip install vPhon
+pip install --index-url https://test.pypi.org/simple/ vPhon
+
 ```
 
 ## Usage
