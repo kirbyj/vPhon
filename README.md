@@ -82,7 +82,7 @@ pip install --index-url https://test.pypi.org/simple/ vPhon
 Import vPhon and call the `convert_line()` function like so:
 ``` python
 from vPhon import vPhon
-vPhon.convert_line("Trong Foe một cuộc", dialect="n")
+vPhon.convert_line("Trong một cuộc", dialect="n")
 ```
 
 ### As a standalone script
