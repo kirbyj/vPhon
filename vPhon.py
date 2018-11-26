@@ -269,7 +269,6 @@ def main():
 
     # parse the input
     for line in fh:
-        print(line)
         if line =='\n':
             pass
         else:
