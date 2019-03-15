@@ -2,7 +2,7 @@
 
 Package: vPhon version 0.3.2
 
-Authors: James Kirby <j.kirby@ed.ac.uk>, Branislav Gerazov <gerazov@feit.ukim.edu.mk>
+Authors: James Kirby <j.kirby@ed.ac.uk>
 
 Web: https://github.com/kirbyj/vPhon
 
