@@ -1,29 +1,28 @@
 ﻿#coding: utf-8
 
 ###########################################################################
-#       vPhon.py version 0.2.6
+#       vPhon.py version 0.3.2
 #       Copyright 2008-2016 James Kirby <j.kirby@ed.ac.uk>
-# 
+#       Copyright 2018 Branislav Gerazov <gerazov@feit.ukim.edu.mk>
 #
-#       vPhon is free software: you can redistribute it and/or modify      
+#
+#       vPhon is free software: you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
-#       the Free Software Foundation, either version 3 of the License, or 
-#       (at your option) any later version.                  
+#       the Free Software Foundation, either version 3 of the License, or
+#       (at your option) any later version.
 #
-#       vPhon is distributed in the hope that it will be useful,     
-#       but WITHOUT ANY WARRANTY; without even the implied warranty of 
-#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-#       GNU General Public License for more details.            
+#       vPhon is distributed in the hope that it will be useful,
+#       but WITHOUT ANY WARRANTY; without even the implied warranty of
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#       GNU General Public License for more details.
 #
-#       You should have received a copy of the GNU General Public License 
-#       along with vPhon.  If not, see <http://www.gnu.org/licenses/>. 
+#       You should have received a copy of the GNU General Public License
+#       along with vPhon.  If not, see <http://www.gnu.org/licenses/>.
 #
 ###########################################################################
 
-# for python 3-style printing:
-from __future__ import print_function
-
-import sys, codecs, re, StringIO
+import sys, codecs, re
+import io  # instead of StringIO for Python 3
 from optparse import OptionParser
 from string import punctuation
 
@@ -31,16 +30,22 @@ def trans(word, dialect, glottal, pham, cao, palatals):
 
     # This looks ugly, but newer versions of python complain about "from x import *" syntax
     if dialect == 'n':
-        from north import onsets, nuclei, codas, tones, onglides, offglides, onoffglides, qu, gi
+        from vPhon.rules.north import (onsets, nuclei, codas, tones,
+                                       onglides, offglides,
+                                       onoffglides, qu, gi)
     elif dialect == 'c':
-        from central import onsets, nuclei, codas, tones, onglides, offglides, onoffglides, qu, gi
+        from vPhon.rules.central import (onsets, nuclei, codas, tones,
+                                         onglides, offglides,
+                                         onoffglides, qu, gi)
     elif dialect == 's':
-        from south import onsets, nuclei, codas, tones, onglides, offglides, onoffglides, qu, gi
+        from vPhon.rules.south import (onsets, nuclei, codas, tones,
+                                       onglides, offglides,
+                                       onoffglides, qu, gi)
 
     if pham or cao:
-        if dialect == 'n': from north import tones_p
-        if dialect == 'c': from central import tones_p
-        if dialect == 's': from south import tones_p
+        if dialect == 'n': from vPhon.rules.north import tones_p
+        if dialect == 'c': from vPhon.rules.central import tones_p
+        if dialect == 's': from vPhon.rules.south import tones_p
         tones = tones_p
 
     ons = ''
@@ -48,7 +53,7 @@ def trans(word, dialect, glottal, pham, cao, palatals):
     cod = ''
     ton = 0
     oOffset = 0
-    cOffset = 0 
+    cOffset = 0
     l = len(word)
 
     if l > 0:
@@ -68,7 +73,7 @@ def trans(word, dialect, glottal, pham, cao, palatals):
         elif word[l-1] in codas:        # if one-character coda
             cod = codas[word[l-1]]
             cOffset = 1
-                            
+
 
         #if word[0:2] == u'gi' and cod and len(word) == 3:  # if you just have 'gi' and a coda...
         if word[0:2] in gi and cod and len(word) == 3:  # if you just have 'gi' and a coda...
@@ -80,25 +85,25 @@ def trans(word, dialect, glottal, pham, cao, palatals):
         if nucl in nuclei:
             if oOffset == 0:
                 if glottal == 1:
-                    if word[0] not in onsets:   # if there isn't an onset....  
+                    if word[0] not in onsets:   # if there isn't an onset....
                         ons = u'ʔ'+nuclei[nucl] # add a glottal stop
                     else:                       # otherwise...
-                        nuc = nuclei[nucl]      # there's your nucleus 
-                else: 
-                    nuc = nuclei[nucl]          # there's your nucleus 
+                        nuc = nuclei[nucl]      # there's your nucleus
+                else:
+                    nuc = nuclei[nucl]          # there's your nucleus
             else:                               # otherwise...
                 nuc = nuclei[nucl]              # there's your nucleus
-        
+
         elif nucl in onglides and ons != u'kw': # if there is an onglide...
             nuc = onglides[nucl]                # modify the nuc accordingly
             if ons:                             # if there is an onset...
                 ons = ons+u'w'                  # labialize it, but...
             else:                               # if there is no onset...
-                ons = u'w'                      # add a labiovelar onset 
+                ons = u'w'                      # add a labiovelar onset
 
-        elif nucl in onglides and ons == u'kw': 
+        elif nucl in onglides and ons == u'kw':
             nuc = onglides[nucl]
-                
+
         elif nucl in onoffglides:
             cod = onoffglides[nucl][-1]
             nuc = onoffglides[nucl][0:-1]
@@ -110,7 +115,7 @@ def trans(word, dialect, glottal, pham, cao, palatals):
         elif nucl in offglides:
             cod = offglides[nucl][-1]
             nuc = offglides[nucl][:-1]
-                
+
         elif word in gi:      # if word == 'gi', 'gì',...
             ons = gi[word][0]
             nuc = gi[word][1]
@@ -118,8 +123,8 @@ def trans(word, dialect, glottal, pham, cao, palatals):
         elif word in qu:      # if word == 'quy', 'qúy',...
             ons = qu[word][:-1]
             nuc = qu[word][-1]
-                
-        else:   
+
+        else:
             # Something is non-Viet
             return (None, None, None, None)
 
@@ -146,7 +151,7 @@ def trans(word, dialect, glottal, pham, cao, palatals):
 
             # There is also this reverse fronting, see Thompson 1965:94 ff.
             elif nuc in [u'iə', u'ɯə', u'uə', u'u', u'ɯ', u'ɤ', u'o', u'ɔ', u'ă', u'ɤ̆']:
-                if cod == u't': 
+                if cod == u't':
                     cod = u'k'
                 if cod == u'n': cod = u'ŋ'
 
@@ -157,20 +162,20 @@ def trans(word, dialect, glottal, pham, cao, palatals):
                 if nuc == u'uə': nuc = u'u'
                 if nuc == u'ɯə': nuc = u'ɯ'
 
-        # Tones 
+        # Tones
         # Modified 20 Sep 2008 to fix aberrant 33 error
-        tonelist = [tones[word[i]] for i in xrange(0,l) if word[i] in tones]
+        tonelist = [tones[word[i]] for i in range(0,l) if word[i] in tones]
         if tonelist:
-            ton = unicode(tonelist[len(tonelist)-1])
+            ton = str(tonelist[len(tonelist)-1])
         else:
             if not (pham or cao):
                 if dialect == 'c':
-                    ton = unicode('35')
+                    ton = str('35')
                 else:
-                    ton = unicode('33')
+                    ton = str('33')
             else:
-                ton = unicode('1')
-            
+                ton = str('1')
+
         # Modifications for closed syllables
         if cOffset !=0:
 
@@ -193,12 +198,12 @@ def trans(word, dialect, glottal, pham, cao, palatals):
             # labialized allophony (added 17.09.08)
             if nuc in [u'u', u'o', u'ɔ']:
                 if cod == u'ŋ':
-                    cod = u'ŋ͡m' 
+                    cod = u'ŋ͡m'
                 if cod == u'k':
                     cod = u'k͡p'
 
         return (ons, nuc, cod, ton)
-    
+
 def convert(word, dialect, glottal, pham, cao, palatals, delimit):
     """Convert a single orthographic string to IPA."""
 
@@ -214,48 +219,110 @@ def convert(word, dialect, glottal, pham, cao, palatals, delimit):
             seq = u'['+word+u']'
         else:
             seq = delimit+delimit.join(filter(None, (ons, nuc, cod, ton)))+delimit
-    except (TypeError), e:
+    except TypeError:
         pass
 
     return seq
-            
-def main():
-    sys.path.append('./Rules')      # make sure we can find the Rules files
 
+def convert_line(line,
+                 dialect='n',
+                 glottal=False,  # prepend glottal stops to onsetless syllables
+                 pham=True,  # tones 1-6
+                 cao=False,  # tones w/ 5b and 6b
+                 palatals=True,  # use word-final palatal velars in Northern dialects
+                 delimit='',  # produce explicitly delimited output
+                 tokenize=False  # if morphemes are tokenized with _
+                 ):
+    compound = u''
+    ortho = u''
+    words = line.split()
+    ## toss len==0 junk
+    words = [word for word in words if len(word)>0]
+    ## hack to get rid of single hyphens or underscores
+    words = [word for word in words if word!=u'-']
+    words = [word for word in words if word!=u'_']
+    for i in range(0,len(words)):
+        word = words[i].strip()
+        ortho += word
+        word = word.strip(punctuation).lower()
+        ## 29.03.16: check if tokenize is true
+        ## if true, call this routine for each substring
+        ## and re-concatenate
+        if (tokenize and '-' in word) or (tokenize and '_' in word):
+            substrings = re.split(r'(_|-)', word)
+            values = substrings[::2]
+            delimiters = substrings[1::2] + ['']
+            ipa = [convert(x, dialect, glottal, pham, cao,
+                           palatals, delimit).strip() for x in values]
+            seq = ''.join(v+d for v,d in zip(ipa, delimiters))
+        else:
+            seq = convert(word, dialect, glottal, pham, cao,
+                          palatals, delimit).strip()
+        # concatenate
+        if len(words) >= 2:
+            ortho += ' '
+        if i < len(words)-1:
+            seq = seq+u' '
+        compound = compound + seq
+
+    ## entire line has been parsed
+    return ortho, compound
+
+
+def main():
     usage = 'python vPhon.py <input> -d, --dialect N|C|S'
 
-    glottal = 0
-    pham = 0 
-    cao = 0
-    palatals = 0
-    tokenize = 0 
-    output_ortho = 0 
+    glottal = False
+    pham = False
+    cao = False
+    palatals = False
+    tokenize = False
+    output_ortho = False
     delimit = ''
 
     # Command line options
     parser = OptionParser(usage)
-    parser.add_option('-g', '--glottal', action='store_true', dest='glottal', help='prepend glottal stops to onsetless syllables')
-    parser.add_option('-6', '--pham', action='store_true', dest='pham', help='phonetize tones as 1-6')
-    parser.add_option('-8', '--cao', action='store_true', dest='cao', help='phonetize tones as 1-4 + 5, 5b, 6, 6b')
-    parser.add_option('-p', '--palatals', action='store_true', dest='palatals', help='use word-final palatal velars in Northern dialects')
-    parser.add_option('-t', '--tokenize', action='store_true', dest='tokenize', help='preserve underscores or hyphens in tokenized inputs (e.g., anh_ta = anh1_ta1)')
-    parser.add_option('-o', '--ortho', action='store_true', dest='output_ortho', help='output orthography as well as IPA')
-    parser.add_option('-m', '--delimit', action='store', type='string', dest='delimit', help='produce explicitly delimited output (e.g., bi ca = .b.i.33. .k.a.33.')
-    parser.add_option('-d', '--dialect', action='store', type='string', dest='dialect', help='specify dialect region ([N]orthern, [C]entral, [S]outhern)')
+    parser.add_option('-g', '--glottal',
+                      action='store_true', dest='glottal',
+                      help='prepend glottal stops to onsetless syllables')
+    parser.add_option('-6', '--pham',
+                      action='store_true', dest='pham',
+                      help='phonetize tones as 1-6')
+    parser.add_option('-8', '--cao',
+                      action='store_true', dest='cao',
+                      help='phonetize tones as 1-4 + 5, 5b, 6, 6b')
+    parser.add_option('-p', '--palatals',
+                      action='store_true', dest='palatals',
+                      help='use word-final palatal velars in Northern dialects')
+    parser.add_option('-t', '--tokenize',
+                      action='store_true', dest='tokenize',
+                      help='preserve underscores or hyphens in tokenized inputs '
+                           ' (e.g., anh_ta = anh1_ta1)')
+    parser.add_option('-o', '--ortho',
+                      action='store_true', dest='output_ortho',
+                      help='output orthography as well as IPA')
+    parser.add_option('-m', '--delimit',
+                      action='store', type='string', dest='delimit',
+                      help='produce explicitly delimited output '
+                           '(e.g., bi ca = .b.i.33. .k.a.33.')
+    parser.add_option('-d', '--dialect',
+                      action='store', type='string',
+                      dest='dialect', help='specify dialect region '
+                           '([N]orthern, [C]entral, [S]outhern)')
     (options, args) = parser.parse_args()
 
     if options.glottal:
-        glottal = 1
+        glottal = True
     if options.pham:
-        pham = 1
+        pham = True
     if options.cao:
-        cao = 1
+        cao = True
     if options.palatals:
-        palatals = 1
+        palatals = True
     if options.tokenize:
-        tokenize = 1
+        tokenize = True
     if options.output_ortho:
-        output_ortho = 1
+        output_ortho = True
     if options.delimit:
         delimit = options.delimit[0]
     if options.dialect:
@@ -267,44 +334,17 @@ def main():
 
 
     # read from stdin
-    fh = StringIO.StringIO(unicode(sys.stdin.read(), 'utf-8'))
+    fh = io.StringIO(sys.stdin.read())
 
     # parse the input
     for line in fh:
         if line =='\n':
             pass
         else:
-            compound = u''
-            ortho = u'' 
-            words = line.split()
-            ## toss len==0 junk
-            words = [word for word in words if len(word)>0]
-            ## hack to get rid of single hyphens or underscores
-            words = [word for word in words if word!=u'-']
-            words = [word for word in words if word!=u'_']
-            for i in xrange(0,len(words)):
-                word = words[i].strip()
-                ortho += word
-                word = word.strip(punctuation).lower()
-                ## 29.03.16: check if tokenize is true
-                ## if true, call this routine for each substring
-                ## and re-concatenate 
-                if (tokenize and '-' in word) or (tokenize and '_' in word):
-                    substrings = re.split(r'(_|-)', word)
-                    values = substrings[::2]
-                    delimiters = substrings[1::2] + ['']
-                    ipa = [convert(x, dialect, glottal, pham, cao, palatals, delimit).strip() for x in values]
-                    seq = ''.join(v+d for v,d in zip(ipa, delimiters))
-                else:
-                    seq = convert(word, dialect, glottal, pham, cao, palatals, delimit).strip()
-                # concatenate
-                if len(words) >= 2:
-                    ortho += ' '
-                if i < len(words)-1:
-                    seq = seq+u' '
-                compound = compound + seq
-            
-            ## entire line has been parsed
+            ortho, compound = convert_line(line,
+                                           dialect, glottal,
+                                           pham, cao, palatals,
+                                           delimit, tokenize)
             if ortho == u'':
                 pass
             else:
@@ -312,9 +352,8 @@ def main():
                 ## print orthography?
                 if output_ortho: print(ortho.encode('utf-8'), end=','),
                 print(compound.encode('utf-8'))
-
     # If we have an open filehandle, close it
-    try:     
+    try:
         fh.close()
     except AttributeError:
         sys.exit(0)

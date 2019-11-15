@@ -1,8 +1,8 @@
 # vPhon: a Vietnamese phonetizer
 
-Package: vPhon version 0.2.6
+Package: vPhon version 0.3.2
 
-Author: James Kirby <j.kirby@ed.ac.uk>
+Authors: James Kirby <j.kirby@ed.ac.uk>
 
 Web: https://github.com/kirbyj/vPhon
 
@@ -35,7 +35,7 @@ By default, vPhon does not recognize final palatal segments [c ɲ], as their val
 
 As of version 0.2.2, final labialized allophones of /ŋ k/ are represented as [ŋ͡m k͡p].
 
-###Tones
+### Tones
 
 vPhon represents tone using one of two methods. By default, vPhon will return Chao tone numbers based on Alves (2007a), Hoàng (1989), Nguyễn and Edmonson (1997), and Vũ (1982).
 
@@ -66,10 +66,26 @@ tones are both phonetized as 4 when vPhon is passed the `-6` or `-8` flags, repr
 
 ## Installation
 
-No installation is required. You must have a working version of Python (>= 2.4) installed and in your path. vPhon requires
-the `__future__`, `string`, `StringIO`, and `optparse` modules, all of which should come standard with Python >= 2.4.x.
+<!-- No installation is required. You must have a working version of Python (>= 2.4) installed and in your path. vPhon requires -->
+<!-- the `__future__`, `string`, `StringIO`, and `optparse` modules, all of which should come standard with Python >= 2.4.x. -->
+
+vPhon can be installed from pip using:
+<!-- edit this once uploaded to PyPI -->
+```
+pip install --index-url https://test.pypi.org/simple/ vPhon
+```
 
 ## Usage
+
+### From within Python
+
+Import vPhon and call the `convert_line()` function like so:
+``` python
+from vPhon import vPhon
+vPhon.convert_line("Trong một cuộc", dialect="n")
+```
+
+### As a standalone script
 
 vPhon takes an obligatory `-d, --dialect` option, specifying the dialect correspondence set to be used for phonetization
 ([N]orthern, [C]entral, or [S]outhern). The correspondence files may be found in the `Rules/` directory, and modified as necessary.
@@ -107,7 +123,7 @@ If no argument is supplied on the command line, vPhon will enter an interactive 
 The `--tokenize` flag is useful if you are processing an older source in which morphemes are separated by hyphens, and you wish to retain the hyphens in your output, or if you are processing the output of e.g. [vnTokenizer](http://mim.hus.vnu.edu.vn/phuonglh/softwares/vnTokenizer):
 
 ```
-[user@terminal]$ python vPhon.py -d N -t test/tokenized.txt 
+[user@terminal]$ python vPhon.py -d N -t test/tokenized.txt
 căw24 oŋ͡m33_ta3 kuŋ͡m35g viən33 cɯə33 biət45
 ```
 
@@ -115,7 +131,7 @@ The `--delimit` flag will produce produce output where each phonetic symbol is s
 
 ## Notes
 
-All non-alphanumeric characters in the input are stripped prior to processing (unless the `--tokenize` option is selected, in which case `-` and `_` will be retained in the output). 
+All non-alphanumeric characters in the input are stripped prior to processing (unless the `--tokenize` option is selected, in which case `-` and `_` will be retained in the output).
 
 Any input containing non-Vietnamese orthography, or series of characters not conforming to Vietnamese phonotactics, will be braced in the output, e.g.
 
@@ -130,10 +146,10 @@ Try running the examples in the `test/` directory to get a better idea of this b
 If you use vPhon for a project or paper, please cite it as:
 
     Kirby, James. 2008. vPhon: a Vietnamese phonetizer (version 0.2.6). Retrieved on <date> from http://github.com/kirbyj/vPhon/.
-    
+
 ## Alternatives
 
-[ADRPhone](http://www.mica.edu.vn/ADRPhone) is a lightweight, standalone phonetizer for Vietnamese written in standard C by Nguyễn Thị Minh Tuyền and Mathias Rossignol. It has many of the same functions as vPhon, but helpfully outputs XML as well. 
+[ADRPhone](http://www.mica.edu.vn/ADRPhone) is a lightweight, standalone phonetizer for Vietnamese written in standard C by Nguyễn Thị Minh Tuyền and Mathias Rossignol. It has many of the same functions as vPhon, but helpfully outputs XML as well.
 
 ## Thank You
 
