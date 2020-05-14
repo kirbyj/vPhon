@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## [1.0.0] - 2020-05-14
+- Final Python 2 version -- legacy release
+
 ## [0.2.6] - 2016-11-09
 ### Added
 - Added -o, --ortho flag to output Viet orthography along with IPA transcription.
