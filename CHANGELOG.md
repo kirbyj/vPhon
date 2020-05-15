@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## [2.0.0] - 2020-05-15
+### Added
+- Python 3 support. To use vPhon with Python 2, see the v1.0.0 release.
+
+### Changed
+- Since `optparse` is deprecated, upgraded to work with `argparse`.
+- the -d, --dialect flag is no longer obligatory: vPhon will default to Northen dialect.
+- Changed behavior of -o, --ortho flag which outputs Viet orthography along with IPA transcription. Like the -m, --delimit flag, this option now requires a delimiter.
+- the -8, --cao option now returns sắc and nặng in checked syllables as 7 and 8, respectively, instead of 5b and 6b.
+
 ## [1.0.0] - 2020-05-14
 - Final Python 2 version -- legacy release
 
@@ -21,3 +31,4 @@
 ### Added
 - Added -t, --tokenize flag to preserve underscores or hyphens in tokenized inputs, so that e.g. anh_ta is output as anh1_ta1. 
 This flag has the effect of not automatically treating inputs with hyphens as non-Viet words.
+
