@@ -35,7 +35,7 @@ By default, vPhon does not recognize final palatal segments [c ɲ], as their val
 
 As of version 0.2.2, final labialized allophones of /ŋ k/ are represented as [ŋ͡m k͡p].
 
-###Tones
+### Tones
 
 
 vPhon represents tone using one of two methods. By default, vPhon will return Chao tone numbers based on Alves (2007a), Hoàng (1989), Nguyễn and Edmonson (1997), and Vũ (1982).
