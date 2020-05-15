@@ -1,6 +1,6 @@
 # vPhon: a Vietnamese phonetizer
 
-Package: vPhon version 0.2.6
+Package: vPhon version 1.0.0 (for Python 2.7)
 
 Author: James Kirby <j.kirby@ed.ac.uk>
 
@@ -179,7 +179,7 @@ Try running the examples in the `test/` directory to get a better idea of this b
 
 If you use vPhon for a project or paper, please cite it as:
 
-    Kirby, James. vPhon: a Vietnamese phonetizer. Retrieved on <date> from http://github.com/kirbyj/vPhon/.
+    Kirby, James. 2008. vPhon: a Vietnamese phonetizer. Retrieved on <date> from http://github.com/kirbyj/vPhon/.
     
 ## Alternatives
 
