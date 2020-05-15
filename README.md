@@ -187,7 +187,7 @@ If you use vPhon for a project or paper, please cite it as:
 
 ## Thank You
 
-Thanks to Doug Cooper, Paul Sidwell, Marc Brunelle, Mark Alves, and Luke Bradley for many useful comments and suggestions, and to Branislav Gerazov and Jia-Cing Ruan (阮家慶) for their help with the Python 3 port. Any errors or inconsistencies are, of course, mine alone, but I would love to hear about them.
+Thanks to Doug Cooper, Paul Sidwell, Marc Brunelle, Mark Alves, and Luke Bradley for many useful comments and suggestions, and to [Branislav Gerazov](https://github.com/gerazov) and Jia-Cing Ruan (阮家慶) for their help with the Python 3 port. Any errors or inconsistencies are, of course, mine alone, but I would love to hear about them.
 
 ## References
 
