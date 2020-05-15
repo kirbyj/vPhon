@@ -1,6 +1,6 @@
 # vPhon: a Vietnamese phonetizer
 
-Package: vPhon version 1.0.0 (for Python 2.7)
+Package: vPhon version 2.0.0 (for Python 3)
 
 Author: James Kirby <j.kirby@ed.ac.uk>
 
@@ -84,7 +84,7 @@ Otherwise, you can send vPhon a stream of UTF-8 text to be phonetized. If you ha
 The full list of options can be seen by using the `-h, --help` flag:
 
 ```
-[user@terminal]$ python vPhon.py -help
+[user@terminal]$ python vPhon.py --help
 usage: vPhon.py [-h] [-d {n,c,s}] [-g] [-6] [-8] [-p] [-t] [-o OUTPUT_ORTHO]
                 [-m DELIMIT]
 
