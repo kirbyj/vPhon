@@ -37,6 +37,7 @@ As of version 0.2.2, final labialized allophones of /ŋ k/ are represented as [�
 
 ###Tones
 
+
 vPhon represents tone using one of two methods. By default, vPhon will return Chao tone numbers based on Alves (2007a), Hoàng (1989), Nguyễn and Edmonson (1997), and Vũ (1982).
 
 Name | North | Central | South
@@ -59,50 +60,52 @@ vPhon also provides an option (given the `-6` flag) to return integer values for
 | sắc   | 5   |
 | nặng  | 6   |
 
-If passed the `-8` flag, *sắc* and *nặng* tones in closed syllables are returned as 5b and 6b, respectively (Cao 1998; Michaud 2004; Phạm 2001).
+If passed the `-8` flag, *sắc* and *nặng* tones in closed syllables are returned as 7 and 8, respectively (Cao 1998; Michaud 2004; Phạm 2001). Note that these were returned as 5b and 6b in vPhon v.1.0.0 and earlier.
 
-Note that for the Central and Southern dialects, the relationship of tone to number is slightly different. Orthographic *hỏi* and *ngã*
-tones are both phonetized as 4 when vPhon is passed the `-6` or `-8` flags, representing the (phonological) mergers present in those dialects (Hoàng 1989: 212 *ff.*)
+Note that for the Central and Southern dialects, the relationship of tone to number is slightly different. Orthographic *hỏi* and *ngã* tones are both phonetized as 4 when vPhon is passed the `-6` or `-8` flags, representing the (phonological) mergers present in those dialects (Hoàng 1989: 212 *ff.*)
 
 ## Installation
 
-No installation is required. You must have a working version of Python (>= 2.4) installed and in your path. vPhon requires
-the `__future__`, `string`, `StringIO`, and `optparse` modules, all of which should come standard with Python >= 2.4.x.
+No installation is required. You must have a working version of Python 3 installed and in your path. We have tested only using 3.7.1. vPhon requires the `sys`, `string`, `re`, `io`, and `argparse` modules, all of which should come standard with Python >= 3.5.
 
 ## Usage
 
-vPhon takes an obligatory `-d, --dialect` option, specifying the dialect correspondence set to be used for phonetization
-([N]orthern, [C]entral, or [S]outhern). The correspondence files may be found in the `Rules/` directory, and modified as necessary.
+From v2.0.0, vPhon does not take any obligatory arguments. If a `-d, --dialect` option is not specified, it defaults to using the standard (Northern) dialect correspondence set.  The correspondence files may be found in the `Rules/` directory.
 
-vPhon also takes, as an optional argument, a stream of UTF-8 text to be phonetized. If you have a file called `tuoi.txt`, for example, and want to create Southern-dialect IPA from it, either of the following will work:
+If no argument is supplied on the command line, vPhon will enter an interactive mode allowing you to enter UTF-8 Vietnamese orthography on the command line. When you are done, send `EOF` (Ctrl-D) to get the output. By default, output is sent to STDOUT.
+
+Otherwise, you can send vPhon a stream of UTF-8 text to be phonetized. If you have a file called `tuoi.txt`, for example, and want to create Southern-dialect IPA from it, either of the following will work:
 
 ```
-> python vPhon.py -d S < tuoi.txt
-> cat tuoi.txt | python vPhon.py --dialect Southern
+[user@terminal]$ python vPhon.py -d S < tuoi.txt
+[user@terminal]$ cat tuoi.txt | python vPhon.py --dialect Southern
 ```
 
-Other optional flags can be seen by using the `-h, --help` flags:
+The full list of options can be seen by using the `-h, --help` flag:
 
 ```
 [user@terminal]$ python vPhon.py -help
-Usage: python vPhon.py <input> -d, --dialect N|C|S
+usage: vPhon.py [-h] [-d {n,c,s}] [-g] [-6] [-8] [-p] [-t] [-o OUTPUT_ORTHO]
+                [-m DELIMIT]
 
-Options:
+python vPhon.py <input>
+
+optional arguments:
   -h, --help            show this help message and exit
+  -d {n,c,s}, --dialect {n,c,s}
+                        specify dialect region (Northern, Central, Southern)
   -g, --glottal         prepend glottal stops to onsetless syllables
   -6, --pham            phonetize tones as 1-6
-  -8, --cao             phonetize tones as 1-4 + 5, 5b, 6, 6b
+  -8, --cao             phonetize tones as 1-8
   -p, --palatals        use word-final palatal velars in Northern dialects
-  -t, --tokenize        preserve underscores or hyphens in tokenized input
-  -m, --delimit         produce delimited output (e.g., an ninh = .a.n.33. .n.i.ɲ.33.)
-  -d DIALECT, --dialect=DIALECT
-                        specify dialect region ([N]orthern, [C]entral,
-                        [S]outhern)
+  -t, --tokenize        preserve underscores or hyphens in tokenized inputs
+                        (e.g., anh_ta = anh1_ta1)
+  -o OUTPUT_ORTHO, --ortho OUTPUT_ORTHO
+                        output orthography as well as IPA
+  -m DELIMIT, --delimit DELIMIT
+                        produce explicitly delimited output (e.g., bi ca =
+                        .b.i.33. .k.a.33.
 ```
-
-By default, output is sent to STDOUT.
-
-If no argument is supplied on the command line, vPhon will enter an interactive mode allowing you to enter UTF-8 Vietnamese orthography on the command line. When you are done, send `EOF` (Ctrl-D) to get the output.
 
 The `--tokenize` flag is useful if you are processing an older source in which morphemes are separated by hyphens, and you wish to retain the hyphens in your output, or if you are processing the output of e.g. [vnTokenizer](http://mim.hus.vnu.edu.vn/phuonglh/softwares/vnTokenizer):
 
@@ -111,7 +114,38 @@ The `--tokenize` flag is useful if you are processing an older source in which m
 căw24 oŋ͡m33_ta3 kuŋ͡m35g viən33 cɯə33 biət45
 ```
 
-The `--delimit` flag will produce produce output where each phonetic symbol is separated by user-specified delimiter. If you use this flag, you must also specify a delimiter.
+The `--delimit` flag will produce produce output where each phonetic symbol is separated by user-specified delimiter. If you use this flag, you must also specify a delimiter, e.g. 
+
+```
+[user@terminal]$ python vPhon.py -m . -8 -d N < test/tokenized.txt
+.c.ă.w.5. [ông_ta] .k.u.ŋ.3. .v.iə.n.1. .c.ɯə.1. .b.iə.t.5b.
+```
+
+
+The `--ortho` flag will output the orthographic input followed by a user-specified delimiter, followed by the phonetized output. If you use this flag, you must also specify a delimiter, e.g. 
+
+```
+[user@terminal]$ python vPhon.py -d N -o , < test/wordlist-top.txt 
+a dua,a33 zuə33
+a ha,a33 ha33
+a hoàn,a33 hwan32
+a la hán,a33 la33 han24
+a-lô,[a-lô]
+```
+
+```
+[user@terminal]$ python vPhon.py -d N -o $'\n' < test/wordlist-top.txt 
+a dua
+a33 zuə33
+a ha
+a33 ha33
+a hoàn
+a33 hwan32
+a la hán
+a33 la33 han24
+a-lô
+[a-lô]
+```
 
 ## Notes
 
@@ -123,13 +157,29 @@ Any input containing non-Vietnamese orthography, or series of characters not con
 [These] [are] [not] [licit] [words] [20mi] [10-15km] [etc]
 ```
 
-Try running the examples in the `test/` directory to get a better idea of this behavior.
+You could then extract just these items, e.g.
+
+```
+[user@terminal] cat test/tuoi.txt | python vPhon.py | awk -F '[][]' '{for (i=2; i<=NF; i+=2) {printf "%s ", $i}; print ""}'
+tt hacao linux 
+hacao linux cd hacao linux usb 
+hacao linux 
+79,5mb 
+174mb 
+windows cd hacao linux cd hacao linux 
+hacao linux cd 
+openoffice 2.03 stardict click see 
+word excel powerpoint windows 
+stardict logic web 
+```
+
+Try running the examples in the `test/` directory to get a better idea of this behavior. 
 
 ## Citation
 
 If you use vPhon for a project or paper, please cite it as:
 
-    Kirby, James. 2008. vPhon: a Vietnamese phonetizer (version 0.2.6). Retrieved on <date> from http://github.com/kirbyj/vPhon/.
+    Kirby, James. vPhon: a Vietnamese phonetizer. Retrieved on <date> from http://github.com/kirbyj/vPhon/.
     
 ## Alternatives
 
@@ -137,11 +187,11 @@ If you use vPhon for a project or paper, please cite it as:
 
 ## Thank You
 
-Thanks to Doug Cooper, Paul Sidwell, Marc Brunell, and Mark Alves for many useful comments and suggestions. Any errors or inconsistencies are, of course, mine alone, but I would love to hear about them.
+Thanks to Doug Cooper, Paul Sidwell, Marc Brunelle, Mark Alves, and Luke Bradley for many useful comments and suggestions, and to Branislav Gerazov and Jia-Cing Ruan (阮家慶) for their help with the Python 3 port. Any errors or inconsistencies are, of course, mine alone, but I would love to hear about them.
 
 ## References
 
-Alves, Mark J. (2007a). "A look at North-Central Vietnamese." In *SEALS XII*, ed. R. Wayland et al., Canberra, Australia.
+Alves, Mark J. (2007a). "A look at North-Central Vietnamese." In *SEALS XII*, ed. R. Wayland et al., Canberra, Australia, pp. 1-7.
 
 Alves, Mark J. and Nguyễn Duy Hương. (2007b). "Notes on Thanh-Chương Vietnamese in Nghệ-an Province". In *SEALS VIII*, ed. M. Alves et al., Canberra, Australia, pp. 1-9.
 
@@ -157,7 +207,7 @@ Nguyễn, Đình-Hoà. (1997). *Vietnamese: Tiếng Việt không son phấn*. A
 
 Nguyễn, Văn Lợi & Edmondson, Jerold A. (1997). Tones and voice quality in modern northern Vietnamese: Instrumental case studies. *Mon-Khmer Studies*, 28, 1-18.
 
-Phạm, Andrea. 2001. *Vietnamese tone: a new analysis*. University of Toronto dissertation. [Reprinted by Routledge, 2003.]
+Phạm, Andrea. (2001). *Vietnamese tone: a new analysis*. University of Toronto dissertation. [Reprinted by Routledge, 2003.]
 
 Thompson, Laurence E. (1965). *A Vietnamese reference grammar*. Seattle: University of Washington Press.
 
