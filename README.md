@@ -1,6 +1,6 @@
 # vPhon: a Vietnamese phonetizer
 
-Package: vPhon version 2.0.0
+Package: vPhon version 2.0.1
 
 Author: James Kirby <j.kirby@ed.ac.uk>
 
@@ -188,7 +188,7 @@ If you use vPhon for a project or paper, please cite it as:
 
 ## Thank You
 
-Thanks to Doug Cooper, Paul Sidwell, Marc Brunelle, Mark Alves, and Luke Bradley for many useful comments and suggestions, and to [Branislav Gerazov](https://github.com/gerazov) and Jia-Cing Ruan (阮家慶) for their help with the Python 3 port. Any errors or inconsistencies are, of course, mine alone, but I would love to hear about them.
+Thanks to Doug Cooper, Paul Sidwell, Marc Brunelle, Mark Alves, James Myers, and Luke Bradley for many useful comments and suggestions, and to [Branislav Gerazov](https://github.com/gerazov) and Jia-Cing Ruan (阮家慶) for their help with the Python 3 port. Any errors or inconsistencies are, of course, mine alone, but I would love to hear about them.
 
 ## References
 
