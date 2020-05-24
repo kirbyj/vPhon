@@ -1,7 +1,8 @@
 ## TODO
 
 - add unit tests
-- superscripts by default; add a `--lower` flag
+- superscripts by default, and switch back to glottal stop in tones?
+- add a `--lower` flag
 - option to turn off labiovelars
 - merge rules files
 - narrow: add option for glottal onset?
