@@ -40,7 +40,7 @@ Final labialized allophones of /ŋ k/ are represented as [ŋ͡m k͡p].
 
 ### Tones
 
-vPhon represents tone using one of two methods. By default, vPhon will return Chao tone numbers in the table below, which are based on Alves (2007a), Hoàng Thị Châu (1989), Nguyễn Văn Lợi and Edmonson (1997), Nguyễn Văn Lợi (2012), and Vũ (1982). Note that, especially for Central (Huế) speech, a wide range of proposals abound: see Nguyễn Văn Lợi (2012) for some discussion.
+vPhon represents tone using one of two methods. By default, vPhon will return Chao tone numbers in the table below, which are based on Alves (2007a), Hoàng Thị Châu (1989), Nguyễn Văn Lợi and Edmonson (1997), Nguyễn Văn Lợi (2012), and Vũ (1982). Note that, especially for Central (Huế) speech, a wide range of proposals abound: see Nguyễn Văn Lợi (2012) for some discussion. *g* is used to indiciate both (medial) laryngealization and (final) glottalization.
 
 Name | North | Central | South
 ---- | ----- | ------- | -----
