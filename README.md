@@ -30,11 +30,11 @@ The choice of onset symbols for the default (Northern) dialect follows Kirby (20
 
 Segmental correspondences generally follow Thompson (1965: 98-103) and Cao Xuân Hạo (1997: 126). vPhon assumes 11 nuclei (following Nguyễn Đình-Hoà 1997, cf. Cao Xuân Hạo 1998: 96-102) and 3 diphthongs /iə uə ɯə/; this decision was made to try and remain as agnostic as possible regarding the actual phonetic values of these segments. Monopthongization of labial-final diphthongs is represented for the Southern dialects (Thompson 1965: 86; Hoàng Thị Châu 1989: 174 *ff*.).
 
-Length is not explicitly represented excepting the phonemic length between the vowel pairs *â/ơ* and *ă/a*. The long variants are not marked with a diacritic; the short vowels *â* and *ă* are transcribed as [ɤ̆] and [ă], respectively. Orthographic *ô*, *ôô* are both transcribed as [o]; similarly, *o, oo* are both transcribed as [ɔ].
+Length is not explicitly represented excepting the phonemic length between the vowel pairs *â/ơ* and *ă/a*. The long variants are not marked with a diacritic; the short vowels *â* and *ă* are transcribed as /ɤ̆/ and /ă/, respectively. Orthographic *ô*, *ôô* are both transcribed as /o/; similarly, *o, oo* are both transcribed as /ɔ/.
 
 ### Finals
 
-By default, vPhon does not recognize final palatal segments [c ɲ], as their values may be predicted from the preceding vocalic segments.  However, the `-p, --palatals` flag causes palatal [c ɲ] codas to be output (Hoàng Thị Châu 1989: 172 *ff*.; cf. Cao Xuân Hạo 1998: 88-102).
+By default, vPhon does not recognize final palatal segments /c ɲ/, as their values may be predicted from the preceding vocalic segments.  However, the `-p, --palatals` flag causes palatal [c ɲ] codas to be output (Hoàng Thị Châu 1989: 172 *ff*.; cf. Cao Xuân Hạo 1998: 88-102).
 
 Final labialized allophones of /ŋ k/ are represented as [ŋ͡m k͡p].
 
