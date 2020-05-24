@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## [2.0.1] - 2020-05-24
+### Added
+`syllables.txt` test file
+
+### Changed
+- Transcription of \<ch\> (and, for Northern, \<tr\>) to /tɕ/
+- Transcription of \<b\> and \<d\> to reflect canonical preglottalized/implosive pronunciation
+- Transcriptions of Central tones
+- Internally, \<oo\> and \<ôô\> are now represented as long vowels, but they are then shortened before output
+
+### Fixed
+- Errors in mappings involving \<e\> and \<ê\>
+
 ## [2.0.0] - 2020-05-15
 ### Added
 - Python 3 support. To use vPhon with Python 2, see the v1.0.0 release.

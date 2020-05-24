@@ -21,33 +21,35 @@ Note that an IPA representation can take one of two alternative starting points:
 
 This implementation currently uses the first approach, meaning that many non-contrastive details are not represented. However, pronunciations where the citation forms differ from dialect to dialect are given, e.g. *anh* > [ɛŋ] (Northern), [an] (Southern).
 
-### Length
 
-Length is not explicitly represented excepting the phonemic length between the vowel pairs *â/ơ* and *ă/a*. The long variants are not marked with a diacritic; the short vowels *â* and *ă* are transcribed as [ɤ̆] and [ă], respectively. Orthographic *ô*, *ôô* are both transcribed as [o]; similarly, *o, oo* are both transcribed as [ɔ].
+### Onsets
+
+The choice of onset symbols for the default (Northern) dialect follows Kirby (2011). Following Thompson (1965) and others, vPhon uses different onset symbols for *tr* and *ch*, *x* and *s*, and *r* in Central and Southern dialects, with the understanding that the phonetic realizations of these graphemes varies. For example, for many Southern speakers *tr* and *ch* spellings may be merged towards [c] or [tɕ], and *x* and *s* towards [s]. Users could easily modify the `Rules` files to represent such mergers. In addition, while vPhon uses [ʐ] to encode orthographic *r* in Central and Southern dialects, the actual phonetic realization can vary widely, unlike in typical Hanoi speech where *r* is consistently [z]. The use of distinct symbols for the different dialects is designed to facilitate cross-dialectal comparison, but not to make specific claims about phonetic realization or variability.
 
 ### Vowels
 
-Segmental correspondences follow Thompson (1965: 98-103), Cao (1997: 126). vPhon assumes 11 nuclei (following Nguyễn 1998, cf. Cao 1998: 96-102) and 3 diphthongs /iə uə ɯə/; this decision was made to try and remain as agnostic as possible regarding the actual phonetic values of these segments. Monopthongization of labial-final diphthongs is represented for the Southern dialects (Thompson 1965: 86; Hoàng 1998: 174 *ff*.).
+Segmental correspondences generally follow Thompson (1965: 98-103) and Cao Xuân Hạo (1997: 126). vPhon assumes 11 nuclei (following Nguyễn Đình-Hoà 1997, cf. Cao Xuân Hạo 1998: 96-102) and 3 diphthongs /iə uə ɯə/; this decision was made to try and remain as agnostic as possible regarding the actual phonetic values of these segments. Monopthongization of labial-final diphthongs is represented for the Southern dialects (Thompson 1965: 86; Hoàng Thị Châu 1989: 174 *ff*.).
+
+Length is not explicitly represented excepting the phonemic length between the vowel pairs *â/ơ* and *ă/a*. The long variants are not marked with a diacritic; the short vowels *â* and *ă* are transcribed as [ɤ̆] and [ă], respectively. Orthographic *ô*, *ôô* are both transcribed as [o]; similarly, *o, oo* are both transcribed as [ɔ].
 
 ### Finals
 
-By default, vPhon does not recognize final palatal segments [c ɲ], as their values may be predicted from the preceding vocalic segments.  However, the `-p, --palatals` flag causes palatal [c ɲ] codas to be output (Hoàng 1989: 172 *ff*.; cf. Cao 1998: 88-102).
+By default, vPhon does not recognize final palatal segments [c ɲ], as their values may be predicted from the preceding vocalic segments.  However, the `-p, --palatals` flag causes palatal [c ɲ] codas to be output (Hoàng Thị Châu 1989: 172 *ff*.; cf. Cao Xuân Hạo 1998: 88-102).
 
 Final labialized allophones of /ŋ k/ are represented as [ŋ͡m k͡p].
 
 ### Tones
 
-
-vPhon represents tone using one of two methods. By default, vPhon will return Chao tone numbers based on Alves (2007a), Hoàng (1989), Nguyễn and Edmonson (1997), and Vũ (1982).
+vPhon represents tone using one of two methods. By default, vPhon will return Chao tone numbers in the table below, which are based on Alves (2007a), Hoàng Thị Châu (1989), Nguyễn Văn Lợi and Edmonson (1997), Nguyễn Văn Lợi (2012), and Vũ (1982). Note that, especially for Central (Huế) speech, a wide range of proposals abound: see Nguyễn Văn Lợi (2012) for some discussion.
 
 Name | North | Central | South
 ---- | ----- | ------- | -----
-ngang|33|35|33
-sắc|24/45|13/45|45
+ngang|33|45|33
+sắc|24/45|2g4/45|45
 huyền|21|42|21
-hỏi|312|312|214
-ngã|35g|312|214
-nặng|21/g|21g|212
+hỏi|312|32g|214
+ngã|35g|32g|214
+nặng|21/g|31|212
 
 vPhon also provides an option (given the `-6` flag) to return integer values for tones given in e.g. Phạm (2001, 59):
 
@@ -196,17 +198,19 @@ Alves, Mark J. (2007a). "A look at North-Central Vietnamese." In *SEALS XII*, ed
 
 Alves, Mark J. and Nguyễn Duy Hương. (2007b). "Notes on Thanh-Chương Vietnamese in Nghệ-an Province". In *SEALS VIII*, ed. M. Alves et al., Canberra, Australia, pp. 1-9.
 
-Cao, Xuân Hạo. (1998). *Tiếng Việt – Mấy vấn đề ngữ âm, ngữ pháp và ngữ nghĩa*. Hà Nội: NXB Giáo dục.
+Cao Xuân Hạo. (1998). *Tiếng Việt – Mấy vấn đề ngữ âm, ngữ pháp và ngữ nghĩa*. Hà Nội: NXB Giáo dục.
 
 Emeneau, M. B. (1951). *Studies in Vietnamese (Annamese) grammar*. University of California publications in linguistics (Vol. 8). Berkeley: University of California Press.
 
-Hoàng, Thị Châu. (1989). *Tiếng Việt trên các miền đất nước: Phương ngữ học*. Hà Nội: Khoa học Xã hội.
+Hoàng Thị Châu. (1989). *Tiếng Việt trên các miền đất nước: Phương ngữ học*. Hà Nội: Khoa học Xã hội.
 
-Michaud, Alexis. (2004). Final consonants and glottalization: New perspectives from Hanoi Vietnamese. *Phonetica*, 61, 119-146.
+Michaud, Alexis. (2004). Final consonants and glottalization: New perspectives from Hanoi Vietnamese. *Phonetica* 61, 119-146.
 
-Nguyễn, Đình-Hoà. (1997). *Vietnamese: Tiếng Việt không son phấn*. Amsterdam: John Benjamins Publishing Company.
+Nguyễn Đình-Hoà. (1997). *Vietnamese: Tiếng Việt không son phấn*. Amsterdam: John Benjamins Publishing Company.
 
-Nguyễn, Văn Lợi & Edmondson, Jerold A. (1997). Tones and voice quality in modern northern Vietnamese: Instrumental case studies. *Mon-Khmer Studies*, 28, 1-18.
+Nguyễn Văn Lợi (2012). Hệ thống thanh điệu tiếng Huế (dựa trên kết quả khảo nghiệm bằng computer). *Tạp chí Từ điển học & Bách khoa thư* 5(19), 54-65.
+
+Nguyễn Văn Lợi & Edmondson, Jerold A. (1997). Tones and voice quality in modern northern Vietnamese: Instrumental case studies. *Mon-Khmer Studies* 28, 1-18.
 
 Phạm, Andrea. (2001). *Vietnamese tone: a new analysis*. University of Toronto dissertation. [Reprinted by Routledge, 2003.]
 

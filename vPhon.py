@@ -157,7 +157,7 @@ def trans(word, dialect, glottal, pham, cao, palatals):
         else:
             if not (pham or cao):
                 if dialect == 'c':
-                    ton = str('35')
+                    ton = str('45')
                 else:
                     ton = str('33')
             else:
@@ -188,6 +188,13 @@ def trans(word, dialect, glottal, pham, cao, palatals):
                     cod = 'ŋ͡m'
                 if cod == 'k':
                     cod = 'k͡p'
+
+            # hack to shorten <oo>, <ôô> (2020-05-23)
+            if nuc in ['oo', 'ɔɔ']:
+                if nuc == 'ɔɔ':
+                    nuc = 'ɔ'
+                if nuc == 'oo':
+                    nuc = 'o'
 
         return (ons, nuc, cod, ton)
 
