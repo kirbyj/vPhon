@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/kirbyj/vPhon.svg?branch=master)](https://travis-ci.com/kirbyj/vPhon)
+
 # vPhon: a Vietnamese phonetizer
 
 Package: vPhon version 2.1.0
@@ -14,7 +16,7 @@ https://www.internationalphoneticassociation.org/content/full-ipa-chart
 
 ## Installation
 
-No installation is required. vPhon should work with python2.7 and higher. vPhon requires the `sys`, `string`, `re`, `io`, and `argparse` modules, all of which should come standard with Python >= 3.5. The correspondence file `rules.py` should live in the same directory as `vPhon` itself.
+No installation is required. vPhon should work with Python 3.4 and higher. vPhon requires the `sys`, `string`, `re`, `io`, and `argparse` modules, all of which should come standard with Python >= 3.5. The correspondence file `rules.py` should live in the same directory as `vPhon` itself.
 
 ## Usage
 
