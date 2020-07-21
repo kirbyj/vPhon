@@ -191,7 +191,7 @@ Regardless of method, for the Central and Southern dialects, orthographic *hỏi
 ### Northern
 
 - Velar codas are indicated as palatalized [-ʲk, -ʲŋ] after front monophthongs and short [a], and labio-velarized as [-k͡p, -ŋ͡m] after back monophthongs. See Haudricourt (1952) and Pham (2006).
-- The affricated palatal (orthographic *ch* *tr*) is transcriped as [tɕ].
+- The affricated palatal (orthographic *ch* *tr*) is transcribed as [tɕ].
 
 ### Southern/Central
 
