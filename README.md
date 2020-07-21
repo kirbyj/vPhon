@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/kirbyj/vPhon.svg?branch=master)](https://travis-ci.com/kirbyj/vPhon)
+
 # vPhon: a Vietnamese phonetizer
 
 Package: vPhon version 2.1.0
@@ -14,7 +16,7 @@ https://www.internationalphoneticassociation.org/content/full-ipa-chart
 
 ## Installation
 
-No installation is required. vPhon should work with python2.7 and higher. vPhon requires the `sys`, `string`, `re`, `io`, and `argparse` modules, all of which should come standard with Python >= 3.5. The correspondence file `rules.py` should live in the same directory as `vPhon` itself.
+No installation is required. vPhon should work with Python 3.4 and higher. vPhon requires the `sys`, `string`, `re`, `io`, and `argparse` modules, all of which should come standard with Python >= 3.5. The correspondence file `rules.py` should live in the same directory as `vPhon` itself.
 
 ## Usage
 
@@ -193,17 +195,16 @@ Regardless of method, for the Central and Southern dialects, orthographic *hỏi
 
 ### Southern/Central
 
-- The Northern diphthongs [ie ɨə uo] are represented as long [i:n ɨː uː], contrasting with the monophthongs [i ɨ u].
+- The Northern diphthongs [ie ɨə uo] are represented as long [i: ɨː uː], contrasting with the monophthongs [i ɨ u].
 - /i e/ are realized [ɨ ə] before surface coronals.
 - On the surface, short back vowels are centralized in closed syllables.
 - The hyperformal contrast between /s/ *x* and /ʂ/ *s* only preserved if `--phonemic` is used.
-- Similaly, orthographic *v* is merged with *j* in the surface output.
-- Following Brunelle (2015), orthographic *tr* is [ʈ] and <ch> is [c].
+- Orthographic *v* is merged with *j* in the surface output only.
+- Following Brunelle (2015), orthographic *tr* is /ʈ/ and <ch> is /c/.
 - Pham (2006) represents non-labial finals as placeless in these dialects; vPhon simply implements the merger in both the underlying and surface forms.
-- It is not clear that "Central Vietnamese" is a meaningful construct. Even a careful study of the speech of Huế city has not been carried out for some time. When invoked with `-d c`, vPhon simply produces segmental forms as for Southern vietnamese with surface tones basically following Nguyễn Văn Lợi (2012).
+- It is not clear that "Central Vietnamese" is a meaningful construct. Even a careful study of the speech of Huế city has not been carried out for some time. When invoked with `-d c`, vPhon simply produces segmental forms as for Southern Vietnamese with Chao tone numbers basically following Nguyễn Văn Lợi (2012).
 
-
-### Things not represented
+### Things not currently represented
 
 - Offglides/diphthongization of monophthongs in open syllables
 - Possible Southern tendency to realize /x/ as [kʰ] or [xʰ]
@@ -222,7 +223,7 @@ If you use vPhon for a project or paper, please cite it as:
 
 ## Thank You
 
-Thanks to Mark Alves, Luke Bradley, Marc Brunelle, Doug Cooper, James Myers, Nguyễn Thúy Nhã Uyên, and Paul Sidwell for many useful comments and suggestions, and to [Branislav Gerazov](https://github.com/gerazov) and Jia-Cing Ruan (阮家慶) for motivating me to finally make vPhon compatible with python3. Any errors or inconsistencies are, of course, mine alone, but I would love to hear about them.
+Thanks to Mark Alves, Luke Bradley, Marc Brunelle, Doug Cooper, James Myers, Nguyễn Thúy Nhã Uyên, and Paul Sidwell for many useful comments and suggestions, and to [Branislav Gerazov](https://github.com/gerazov) and Jia-Cing Ruan (阮家慶) for motivating me to finally make vPhon compatible with Python 3. Any errors or inconsistencies are, of course, mine alone, but I would love to hear about them.
 
 ## References
 
