@@ -19,245 +19,349 @@
 ###########################################################################
 
 import sys, re, io, string, argparse
+from rules import *
 
-def trans(word, dialect, glottal, pham, cao, palatals):
+def trans(word, dialect, chao, nosuper, glottal, phonemic):
 
-    if dialect == 'n':
-        from north import onsets, nuclei, codas, tones, onglides, offglides, onoffglides, qu, gi
+    ## 
+    # Setup
+    ##
+
+    #six_tones = six_s_lower if nosuper else six_s_super 
+    if dialect == 's':
+        chao_tones = chao_s_lower if nosuper else chao_s_super
     elif dialect == 'c':
-        from central import onsets, nuclei, codas, tones, onglides, offglides, onoffglides, qu, gi
-    elif dialect == 's':
-        from south import onsets, nuclei, codas, tones, onglides, offglides, onoffglides, qu, gi
+        chao_tones = chao_c_lower if nosuper else chao_c_super
+    else:
+        chao_tones = chao_n_lower if nosuper else chao_n_super
+    #    six_tones = six_n_lower if nosuper else six_n_super 
 
-    if pham or cao:
-        if dialect == 'n': from north import tones_p
-        if dialect == 'c': from central import tones_p
-        if dialect == 's': from south import tones_p
-        tones = tones_p
+    # Set variable for surface phonetic representation of labiodorsal finals
+    ld_nas = 'ŋ͡m' #if nosuper else 'ŋᵐ' 
+    ld_plo = 'k͡p' #if nosuper else 'kᵖ' 
 
+    # Set case for palatalized dorsal finals
+    pal_nas = 'ɲ' if nosuper else 'ʲŋ'
+    pal_plo = 'c' if nosuper else 'ʲk'
+
+    # Set case for labiovelar glide
+    lv_gli = 'w' if nosuper else 'ʷ'
+
+    # Set case for aspirated coronal onset
+    if nosuper: onsets['th'] = 'th'
+        
     ons = ''
+    gli = ''
     nuc = ''
     cod = ''
-    ton = 0
+    ton = '' 
     oOffset = 0
     cOffset = 0
-    l = len(word)
+    length = len(word)
 
-    if l > 0:
+    if length > 0:
         if word[0:3] in onsets:         # if onset is 'ngh'
             ons = onsets[word[0:3]]
             oOffset = 3
-        elif word[0:2] in onsets:       # if onset is 'nh', 'gh', 'kʷ' etc
+        elif word[0:2] in onsets:       # if onset is 'nh', 'gh', etc
             ons = onsets[word[0:2]]
             oOffset = 2
         elif word[0] in onsets:         # if single onset
             ons = onsets[word[0]]
             oOffset = 1
 
-        if word[l-2:l] in codas:        # if two-character coda
-            cod = codas[word[l-2:l]]
+        if word[length-2:length] in codas:      # if two-character coda
+            cod = codas[word[length-2:length]]
             cOffset = 2
-        elif word[l-1] in codas:        # if one-character coda
-            cod = codas[word[l-1]]
+        elif word[length-1] in codas:           # if one-character coda
+            cod = codas[word[length-1]]
             cOffset = 1
 
+        nucl = word[oOffset:length-cOffset]
 
-        #if word[0:2] == 'gi' and cod and len(word) == 3:  # if you just have 'gi' and a coda...
-        if word[0:2] in gi and cod and len(word) == 3:  # if you just have 'gi' and a coda...
-            nucl = 'i'
-            ons = 'z'
-        else:
-            nucl = word[oOffset:l-cOffset]
+        ##
+        # Onsets
+        ## 
+
+        # Edge cases
+        # Prepend glottal stop to onsetless syllables for now
+        if oOffset == 0: ons = 'ʔ'
+ 
+        # Deal with 'quy', 'quý'... (fails if tone misplaced)
+        if word in qu: 
+            ons = qu[word][0]
+            nuc = qu[word][-1]
+            if len(qu[word]) > 2: gli = lv_gli
+
+        # Deal with gi and giêng
+        if word[0:2] in gi:
+            if length == 2: nucl = 'i'
+            else: nucl = 'iê' if word[2] in ['ê', 'ế', 'ề', 'ể', 'ễ', 'ệ'] else nucl
+            ons = onsets['gi']
+
+        ##
+        # Vowels
+        ## 
 
         if nucl in nuclei:
-            if oOffset == 0:
-                if glottal == 1:
-                    if word[0] not in onsets:   # if there isn't an onset....
-                        ons = 'ʔ'+nuclei[nucl]  # add a glottal stop
-                    else:                       # otherwise...
-                        nuc = nuclei[nucl]      # there's your nucleus
-                else:
-                    nuc = nuclei[nucl]          # there's your nucleus
-            else:                               # otherwise...
-                nuc = nuclei[nucl]              # there's your nucleus
+            nuc = nuclei[nucl]
 
-        elif nucl in onglides and ons != 'kw':  # if there is an onglide...
+        elif nucl in onglides:                  # if there is an onglide...
             nuc = onglides[nucl]                # modify the nuc accordingly
-            if ons:                             # if there is an onset...
-                ons = ons+'w'                   # labialize it, but...
+            if ons != 'ʔ':                      # if there is a (non-glottal) onset...
+                ons = ons+lv_gli                # labialize it, but...
             else:                               # if there is no onset...
                 ons = 'w'                       # add a labiovelar onset
-
-        elif nucl in onglides and ons == 'kw':
-            nuc = onglides[nucl]
 
         elif nucl in onoffglides:
             cod = onoffglides[nucl][-1]
             nuc = onoffglides[nucl][0:-1]
-            if ons != 'kw':
-                if ons:
-                    ons = ons+'w'
-                else:
-                    ons = 'w'
+
         elif nucl in offglides:
             cod = offglides[nucl][-1]
             nuc = offglides[nucl][:-1]
 
-        elif word in gi:      # if word == 'gi', 'gì',...
-            ons = gi[word][0]
-            nuc = gi[word][1]
-
-        elif word in qu:      # if word == 'quy', 'qúy',...
-            ons = qu[word][:-1]
-            nuc = qu[word][-1]
-
         else:
-            # Something is non-Viet
-            return (None, None, None, None)
+            # Can already tell that something is non-Viet: bail out
+            return (None, None, None, None, None)
 
+        # Deal with other labialized onsets
+        #if ons == 'kʷ': ons = 'k'; gli = lv_gli
+        if len(ons) == 2 and ons[1] == lv_gli: ons = ons[0]; gli = lv_gli
 
-        # Velar Fronting (Northern dialect)
-        if dialect == 'n':
-            if nuc == 'a':
-                if cod == 'k' and cOffset == 2: nuc = 'ɛ'
-                if cod == 'ɲ' and nuc == 'a': nuc = 'ɛ'
-
-            # Final palatals (Northern dialect)
-            if nuc not in ['i', 'e', 'ɛ']:
-                if cod == 'ɲ': cod = 'ŋ'
-            elif palatals != 1 and nuc in ['i', 'e', 'ɛ']:
-                if cod == 'ɲ': cod = 'ŋ'
-            if palatals == 1:
-                if cod == 'k' and nuc in ['i', 'e', 'ɛ']: cod = 'c'
-
-        # Velar Fronting (Southern and Central dialects)
-        else:
-            if nuc in ['i', 'e']:
-                if cod == 'k': cod = 't'
-                if cod == 'ŋ': cod = 'n'
-
-            # There is also this reverse fronting, see Thompson 1965:94 ff.
-            elif nuc in ['iə', 'ɯə', 'uə', 'u', 'ɯ', 'ɤ', 'o', 'ɔ', 'ă', 'ɤ̆']:
-                if cod == 't':
-                    cod = 'k'
-                if cod == 'n': cod = 'ŋ'
-
-        # Monophthongization (Southern dialects: Thompson 1965: 86; Hoàng 1985: 181)
-        if dialect == 's':
-            if cod in ['m', 'p']:
-                if nuc == 'iə': nuc = 'i'
-                if nuc == 'uə': nuc = 'u'
-                if nuc == 'ɯə': nuc = 'ɯ'
-
+        ##
         # Tones
-        # Modified 2008-09-20 to fix aberrant 33 error
-        tonelist = [tones[word[i]] for i in range(0,l) if word[i] in tones]
-        if tonelist:
-            ton = str(tonelist[len(tonelist)-1])
+        ##
+
+        # A1 needs to be added here or else it's impossible to 
+        # logically determine which character to care about
+        tonelist = [tones[word[i]] for i in range(0,length) if word[i] in tones]
+        if tonelist: ton = str(tonelist[len(tonelist)-1])
+        else: ton = 'A1'
+        if (ton == 'B1' and cod in ['p', 't', 'c', 'k']): ton = 'D1'
+        if (ton == 'B2' and cod in ['p', 't', 'c', 'k']): ton = 'D2'
+
+        #if six:
+        #    ton = six_tones[ton]
+        if chao:
+            ton = chao_tones[ton]
         else:
-            if not (pham or cao):
-                if dialect == 'c':
-                    ton = str('45')
-                else:
-                    ton = str('33')
+            if not nosuper: ton = gedney_super[ton]
+
+        ##
+        # Generate internal G2P representation
+        ## 
+
+        # If flagged, delete predictable glottal onsets
+        if glottal and ons == 'ʔ': ons = ''
+
+        # Capture vowel/coda interactions of ɛ/ɛː and e/eː
+        if cod in ['ŋ', 'k']:
+            if nuc == 'ɛ': nuc = 'ɛː'
+            if nuc == 'e': nuc = 'eː'
+
+        # Velar fronting
+        if nuc == 'aː':
+            if cod == 'c': nuc = 'ɛ'
+            if cod == 'ɲ': nuc = 'ɛ'
+
+        ##
+        # Northern
+        ##
+
+        # Transform internal G2P to UR
+        if dialect == 'n':
+
+            # Onset mergers
+            if ons in ['j', 'r']: ons = 'z'
+            elif ons in ['c', 'ʈ']: ons = 'tɕ'
+            elif ons == 'ʂ': ons = 's'
+
+            # No surface palatal codas
+            if cod in ['c', 'ɲ']:
+                if cod == 'c': cod = 'k'
+                if cod == 'ɲ': cod = 'ŋ'
+
+            # Now, if generating SRs (default), apply rules
+            if not phonemic:
+
+                # Palatalized and labiodorsal codas
+                if cod in ['k', 'ŋ']:
+                    if nuc in ['e', 'ɛ', 'i']: 
+                        if cod == 'k': cod = pal_plo
+                        if cod == 'ŋ': cod = pal_nas
+                    elif nuc in ['u', 'ɔ', 'o'] and word != 'quốc':
+                        if cod == 'k': cod = 'k͡p'
+                        if cod == 'ŋ': cod = 'ŋ͡m'
+
+                # Surface pre-palatal vowel centralization
+                if cod in [pal_nas, pal_plo]:
+                    if nuc == 'ɛ': nuc = 'a'
+   
+                # Lengthen surface monophthongs where there is no length contrast
+                if len(nuc) == 1 and nuc not in ['a', 'ə']: 
+                    if len(cod) == 1 and nuc != 'ɨ': nuc += 'ː'
+                    elif len(cod) == 0: nuc += 'ː'
+
             else:
-                ton = str('1')
+                # Shorten long monophthongs in open syllables for UR
+                if not cod and nuc in ['aː', 'əː']: 
+                    if nuc == 'aː': nuc = 'a'
+                    if nuc == 'əː': nuc = 'ə'
 
-        # Modifications for closed syllables
-        if cOffset !=0:
+        ## 
+        # Central/Southern
+        ##
 
-            # Obstruent-final nang tones are modal voice
-            if (dialect == 'n' or dialect == 's') and ton == '21g' and cod in ['p', 't', 'k']:
-                #if ton == '21\u02C0' and cod in ['p', 't', 'k']: # fixed 8 Nov 2016
-                ton = '21'
+        else:
+            if ons == 'z': ons = 'j'
+            if ons == 'k' and gli == lv_gli: ons = 'w'; gli = ''
+            if ons == 'ɣ': ons = 'ɡ'
 
-            # Modification for sắc in closed syllables (Northern and Central only)
-            if ((dialect == 'n' and ton == '24') or (dialect == 'c' and ton == '13')) and cod in ['p', 't', 'k']:
-                ton = '45'
+            # Hanoi diphthongs are long monophthongs
+            if cod and nuc in ['iə', 'uə', 'ɨə']:
+                if nuc == 'iə': nuc = 'iː'
+                if nuc == 'ɨə': nuc = 'ɨː'
+                if nuc == 'uə': nuc = 'uː'
 
-            # Modification for 8-tone system
-            if cao == 1:
-                if ton == '5' and cod in ['p', 't', 'k']:
-                    ton = '7'
-                if ton == '6' and cod in ['p', 't', 'k']:
-                    ton = '8'
+            # Partial ɔ/o merger  
+            if nuc == 'ɔ' and cod in ['n', 't']: nuc = 'ɔː'
+            if nuc == 'o' and cod in ['ŋ', 'k']: nuc = 'ɔ' 
 
-            # labialized allophony (added 2008-09-17)
-            if nuc in ['u', 'o', 'ɔ']:
-                if cod == 'ŋ':
-                    cod = 'ŋ͡m'
-                if cod == 'k':
-                    cod = 'k͡p'
+            if nuc == 'ɛ' and cod in ['n', 't']: 
+                if cod =='n': cod = 'ŋ'
+                if cod =='t': cod = 't'
+                nuc = 'ɛː'
+                    
+            # No coronals after long vowels 
+            if cod and len(nuc) == 2:
+                if cod == 'n': cod = 'ŋ'
+                if cod == 't': cod = 'k'
 
-            # hack to shorten <oo>, <ôô> (2020-05-23)
-            if nuc in ['oo', 'ɔɔ']:
-                if nuc == 'ɔɔ':
-                    nuc = 'ɔ'
-                if nuc == 'oo':
-                    nuc = 'o'
+            # No coronals after central vowels 
+            if cod and nuc in ['ɨ', 'ə', 'a', 'u', 'o']:
+                if cod == 'n': cod = 'ŋ'
+                if cod == 't': cod = 'k'
 
-        return (ons, nuc, cod, ton)
+            # No dorsals after short front vowels
+            if cod and nuc in ['i', 'e', 'ɛ']:
+                if cod == 'ŋ': cod = 'n'
+                if cod == 'k': cod = 't'
+      
+            # All non-labial codas are dorsal or coronal
+            if cod in ['ɲ', 'c']:
+                if cod == 'ɲ': cod = 'n'
+                if cod == 'c': cod = 't'
 
-def convert(word, dialect, glottal, pham, cao, palatals, delimit):
+            # Now, if generating SRs (default), apply rules
+            if not phonemic:
+
+                # Surface <x> <s> merger
+                if ons == 'ʂ': ons = 's'
+
+                # Pre-coronal centralization
+                if cod in ['n', 't']:
+                    if nuc in ['i', 'e', 'ɛ']: 
+                        if nuc == 'i': nuc = 'ɨ' 
+                        if nuc == 'ɛ': nuc = 'a' 
+                        if nuc == 'e': nuc = 'əː'
+
+                # Centralization of /u/ before labials
+                if nuc == 'u' and cod in ['m', 'p']: nuc = 'ɨ'
+
+                # No short surface /e ɛ o ɔ/ (except before labiodorsals)
+                if nuc in ['e', 'ɛ', 'o', 'ɔ']:
+                    if nuc == 'e': nuc = 'eː'
+                    if nuc == 'ɛ': nuc = 'ɛː'
+                    if not cod in ['ŋ', 'k']: 
+                        if nuc == 'o': nuc = 'oː' 
+                        if nuc == 'ɔ': nuc = 'ɔː'
+
+                # Labiodorsals after [u ɔ oː]
+                if nuc in ['u', 'ɔ', 'oː'] and cod in ['ŋ', 'k']:
+                    if cod == 'ŋ': cod = 'ŋ͡m'
+                    if cod == 'k': cod = 'k͡p'
+
+        ##
+        # Universal UR modifications
+        ##
+        
+        # Shorten long monophthongs in open syllables for UR
+        if phonemic and not cod and nuc in ['aː', 'əː']:
+            if nuc == 'aː': nuc = 'a'
+            if nuc == 'əː': nuc = 'ə'
+
+        ## 
+        # All done
+        ##
+
+        return (ons, gli, nuc, cod, ton)
+
+
+def convert(word, dialect, chao, nosuper, glottal, phonemic, delimit):
     """Convert a single orthographic string to IPA."""
 
     ons = ''
+    gli = ''
     nuc = ''
     cod = ''
-    ton = 0
+    ton = ''
     seq = ''
 
     try:
-        (ons, nuc, cod, ton) = trans(word, dialect, glottal, pham, cao, palatals)
-        if None in (ons, nuc, cod, ton):
+        (ons, gli, nuc, cod, ton) = trans(word, dialect, chao, nosuper, glottal, phonemic)
+        if None in (ons, gli, nuc, cod, ton):
             seq = '['+word+']'
         else:
-            seq = delimit+delimit.join(filter(None, (ons, nuc, cod, ton)))+delimit
+            seq = delimit+delimit.join(filter(None, (ons, gli, nuc, cod, ton)))+delimit
     except TypeError:
         pass
 
     return seq
 
 def main():
-    sys.path.append('./Rules')      # make sure we can find the Rules files
 
-    dialect = 'n'
-    glottal = False
-    pham = False
-    cao = False
-    palatals = False
-    tokenize = False
-    output_ortho = '' 
+    chao = False
     delimit = ''
+    dialect = 'n'
+    nosuper = False
+    glottal = False
+    phonemic = False
+    output_ortho = '' 
+    #six = False
+    tokenize = False
 
     # Command line options
-    parser = argparse.ArgumentParser(description = "python vPhon.py <input>")
-    parser.add_argument("-d", "--dialect", choices=["n","c","s"], help="specify dialect region (Northern, Central, Southern)", type = str.lower)
-    parser.add_argument("-g", "--glottal", action="store_true", help="prepend glottal stops to onsetless syllables")
-    parser.add_argument("-6", "--pham", action="store_true", help="phonetize tones as 1-6")
-    parser.add_argument("-8", "--cao", action="store_true", help="phonetize tones as 1-8")
-    parser.add_argument("-p", "--palatals", action="store_true", help="use word-final palatal velars in Northern dialects")
-    parser.add_argument("-t", "--tokenize", action="store_true", help="preserve underscores or hyphens in tokenized inputs (e.g., anh_ta = anh1_ta1)")
-    parser.add_argument("-o", "--ortho", action="store", type=str, dest="output_ortho", help="output orthography as well as IPA")
-    parser.add_argument("-m", "--delimit", action="store", type=str, help="produce explicitly delimited output (e.g., bi ca = .b.i.33. .k.a.33.")
+    parser = argparse.ArgumentParser(description = "python vPhon.py")
+    parser.add_argument("-d", "--dialect", choices=["n","c","s"], help="Specify dialect region (Northern, Central, Southern)", type = str.lower)
+    parser.add_argument("-c", "--chao", action="store_true", help="Phonetize tones as Chao values")
+    parser.add_argument("-g", "--glottal", action="store_true", help="No glottal stops in underlying forms")
+    #parser.add_argument("-6", "--six", action="store_true", help="Phonetize tones as 1-6")
+    parser.add_argument("-n", "--nosuper", action="store_true", help="No superscripts anywhere")
+    parser.add_argument("-p", "--phonemic", action="store_true", help="Underlying transcriptions after Pham (2006)")
+    parser.add_argument("-m", "--delimit", action="store", type=str, help="produce delimited output (bi ca = .b.i.33. .k.a.33.)")
+    parser.add_argument("-o", "--ortho", action="store", type=str, dest="output_ortho", help="output orthography as well as IPA (quốc: wok⁴⁵)")
+    parser.add_argument("-t", "--tokenize", action="store_true", help="Preserve underscores or hyphens in tokenized inputs (anh_ta = anhᴬ¹_taᴬ¹)")
     args = parser.parse_args()
 
+    if args.chao:
+        chao = True
+    if args.delimit:
+        delimit = args.delimit
     if args.dialect:
         dialect = args.dialect[0]
     if args.glottal:
         glottal = True
-    if args.pham:
-        pham = True
-    if args.cao:
-        cao = True
-    if args.palatals:
-        palatals = True
+    if args.nosuper:
+        nosuper = True
+    if args.phonemic:
+        phonemic = True
+    if args.output_ortho:
+        output_ortho = args.output_ortho
+    #if args.six:
+    #    six = True
     if args.tokenize:
         tokenize = True
-    if args.output_ortho:
-        output_ortho = args.output_ortho[0]
-    if args.delimit:
-        delimit = args.delimit[0]
 
     # read from stdin
     fh = io.StringIO(sys.stdin.read())
@@ -280,21 +384,21 @@ def main():
                 word = words[i].strip()
                 ortho += word
                 word = word.strip(string.punctuation).lower()
-                # 2016-03-29: check if tokenize is true
-                # if true, call this routine for each substring and re-concatenate
+                # if tokenize==true: 
+                # call this routine for each substring and re-concatenate
                 if (tokenize and '-' in word) or (tokenize and '_' in word):
                     substrings = re.split(r'(_|-)', word)
                     values = substrings[::2]
                     delimiters = substrings[1::2] + ['']
-                    ipa = [convert(x, dialect, glottal, pham, cao, palatals, delimit).strip() for x in values]
+                    ipa = [convert(x, dialect, chao, nosuper, glottal, phonemic, delimit).strip() for x in values]
                     seq = ''.join(v+d for v,d in zip(ipa, delimiters))
                 else:
-                    seq = convert(word, dialect, glottal, pham, cao, palatals, delimit).strip()
+                    seq = convert(word, dialect, chao, nosuper, glottal, phonemic, delimit).strip()
                 # concatenate
                 if len(words) >= 2:
                     ortho += ' '
                 if i < len(words)-1:
-                    seq = seq+' '
+                    seq = seq + ' '
                 compound = compound + seq
 
             # entire line has been parsed
@@ -303,7 +407,7 @@ def main():
             else:
                 ortho = ortho.strip()
                 # print orthography?
-                if output_ortho: 
+                if output_ortho:
                     print(ortho, end=output_ortho),
                 print(compound)
 
