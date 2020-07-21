@@ -4,7 +4,7 @@
 ### Added
 - Major re-write of script logic - now generates internal G2P representation as basis for all output types
 - As a result, G2P 'rules' mapping greatly simplified
-- Changed default tone encodings; option to force strict lowercasing
+- Changed default tone encodings; options to force strict lowercasing and suppression of glottals
 - Added continuous integration testing
 - Both surface and underlying outputs now follow Pham (2006)
 
