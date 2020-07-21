@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## [2.1.0] - 2020-07-21
+### Added
+- Major re-write of script logic - now generates internal G2P representation as basis for all output types
+- As a result, G2P 'rules' mapping greatly simplified
+- Changed default tone encodings; option to force strict lowercasing
+- Added continuous integration testing
+- Both surface and underlying outputs now follow Pham (2006)
+
 ## [2.0.1] - 2020-05-24
 ### Added
 `syllables.txt` test file
