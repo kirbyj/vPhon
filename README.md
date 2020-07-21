@@ -67,7 +67,7 @@ vPhon's default behavior is to produce narrow (surface) Northern dialect forms, 
 ʔaː33 laː33 haːn24
 ```
 
-As noted above, vPhon can produce an "underlying" (phonemic) representation following the analysis of Pham (2006). To generate this, use the `--phonemic` flag:
+vPhon can produce an "underlying" (phonemic) representation following the analysis of [Pham (2006)](https://people.clas.ufl.edu/apham/files/Vietnamese-Rhyme.pdf). To generate this, use the `--phonemic` flag:
 
 ```
 [user@terminal]$ python vPhon.py --phonemic < text/baamboo.txt 
@@ -158,7 +158,7 @@ There is no Unicode upper-case superscript 'C'. If this really bothers you, use 
 
 ## Representational considerations
 
-From version 2.1, vPhon's output is based on the phonetic and phonological analysis presented by Pham (2006). This is not the only possible representational solution to the problem of Vietnamese phonotactics, but it has the advantage of a being a well-documented one. See Pham (2006) for details and references to earlier work. 
+From version 2.1, vPhon's output is based on the phonetic and phonological analysis of [Pham (2006)](https://people.clas.ufl.edu/apham/files/Vietnamese-Rhyme.pdf). This is not the only possible representational solution to the problem of Vietnamese phonotactics, but it has the advantage of a being a well-documented one. See Pham (2006) for details and references to earlier work. 
 
 ### General
 
