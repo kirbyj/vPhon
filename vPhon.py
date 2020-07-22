@@ -364,7 +364,7 @@ def main():
         tokenize = True
 
     # read from stdin
-    fh = io.StringIO(sys.stdin.read())
+    fh = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
 
     # parse the input
     for line in fh:
@@ -407,8 +407,7 @@ def main():
             else:
                 ortho = ortho.strip()
                 # print orthography?
-                if output_ortho:
-                    print(ortho, end=output_ortho),
+                if output_ortho: print(ortho, output_ortho)
                 print(compound)
 
     # if we have an open filehandle, close it
