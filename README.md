@@ -170,7 +170,7 @@ The representational issue of vowel length is vexed. Phonetically, Vietnamese di
 
 ### Tones
 
-vPhon represents tone using one of two methods. By default, vPhon returns tones using "Gedney"-style notation (A1, A2, B1...) following Michaud (2004) and Brunelle (2015). In this system each tone receives a combination of a letter and a number. The *A* tones derive from historically open syllables, *B* tones derive from creaky syllables and syllables originally closed by a glottal stop, *C* tones derive from syllables with final spirants (-h), and *D* tones from historically `checked' syllables, i.e. those with obstruent coda. *1* is used for tones found on syllables that originally had a voiceless onset and *2* is used for syllables that originally had a voiced onset.
+vPhon represents tone using one of two methods. By default, vPhon returns tones using "Gedney"-style notation (A1, A2, B1...) following Michaud (2004) and Brunelle (2015). In this system each tone receives a combination of a letter and a number. The *A* tones derive from historically open syllables, *B* tones derive from creaky syllables and syllables originally closed by a glottal stop, *C* tones derive from syllables with final spirants (-h), and *D* tones from historically "checked" syllables, i.e. those with obstruent coda. *1* is used for tones found on syllables that originally had a voiceless onset and *2* is used for syllables that originally had a voiced onset.
 
 If passed the `--chao` flag, vPhon will instead return Chao tone numbers as given the table below, which are based on Alves (2007), Hoàng Thị Châu (1989), Nguyễn Văn Lợi and Edmonson (1997), Nguyễn Văn Lợi (2012), and Vũ (1982). Note that, especially for Central (Huế) speech, a wide range of proposals abound: see Nguyễn Văn Lợi (2012) for some discussion.
 
@@ -191,11 +191,11 @@ Regardless of method, for the Central and Southern dialects, orthographic *hỏi
 ### Northern
 
 - Velar codas are indicated as palatalized [-ʲk, -ʲŋ] after front monophthongs and short [a], and labio-velarized as [-k͡p, -ŋ͡m] after back monophthongs. See Haudricourt (1952) and Pham (2006).
-- The affricated palatal (orthographic *ch* *tr*) is transcriped as [tɕ].
+- The affricated palatal (orthographic *ch* *tr*) is transcribed as [tɕ].
 
 ### Southern/Central
 
-- The Northern diphthongs [ie ɨə uo] are represented as long [i: ɨː uː], contrasting with the monophthongs [i ɨ u].
+- The Northern diphthongs /ie ɨə uo/ are represented as long /i: ɨː uː/, contrasting with the monophthongs /i ɨ u/.
 - /i e/ are realized [ɨ ə] before surface coronals.
 - On the surface, short back vowels are centralized in closed syllables.
 - The hyperformal contrast between /s/ *x* and /ʂ/ *s* only preserved if `--phonemic` is used.
@@ -227,21 +227,21 @@ Thanks to Mark Alves, Luke Bradley, Marc Brunelle, Doug Cooper, James Myers, Ngu
 
 ## References
 
-Alves, Mark J. (2007). "A look at North-Central Vietnamese." In *SEALS XII*, ed. R. Wayland et al., Canberra, Australia, pp. 1-7.
+Alves, Mark J. (2007). A look at North-Central Vietnamese. In *SEALS XII*, ed. R. Wayland et al., pp. 1-7. Canberra: Pacific Linguistics.
 
-Brunelle, Marc. (2015). "Vietnamese (Tiếng Việt)". In *The handbook of Austroasiatic languages*, ed. M. Jenney and P. Sidwell, pp. 909-953. Leiden: Brill.
+Brunelle, Marc. (2015). Vietnamese (Tiếng Việt). In *The handbook of Austroasiatic languages*, ed. M. Jenney and P. Sidwell, pp. 909-953. Leiden: Brill.
 
 Cao Xuân Hạo. (1998). *Tiếng Việt – Mấy vấn đề ngữ âm, ngữ pháp và ngữ nghĩa*. Hà Nội: NXB Giáo dục.
 
 Emerich, Giang H. (2012). *The Vietnamese vowel system*. PhD dissertation, University of Pennsylvania.
 
-Hoàng Thị Châu. (1989). *Tiếng Việt trên các miền đất nước: Phương ngữ học*. Hà Nội: Khoa học Xã hội.
+Hoàng Thị Châu. (1989). *Tiếng Việt trên các miền đất nước: Phương ngữ học*. Hà Nội: NXB Khoa học Xã hội.
 
-Kirby, James. (2011). "Vietnamese (Hanoi Vietnamese). *Journal of the International Phonetic Association" 41(3), 381-392.
+Kirby, James. (2011). Vietnamese (Hanoi Vietnamese). *Journal of the International Phonetic Association* 41(3), 381-392.
 
 Michaud, Alexis. (2004). Final consonants and glottalization: New perspectives from Hanoi Vietnamese. *Phonetica* 61, 119-146.
 
-Nguyễn Đình-Hoà. (1997). *Vietnamese: Tiếng Việt không son phấn*. Amsterdam: John Benjamins Publishing Company.
+Nguyễn Đình-Hoà. (1997). *Vietnamese: Tiếng Việt không son phấn*. Amsterdam: John Benjamins.
 
 Nguyễn Văn Lợi (2012). Hệ thống thanh điệu tiếng Huế (dựa trên kết quả khảo nghiệm bằng computer). *Tạp chí Từ điển học & Bách khoa thư* 5(19), 54-65.
 
@@ -251,4 +251,4 @@ Pham, Andrea Hoa. (2006). Vietnamese rhyme. *Southwest Journal of Linguistics* 2
 
 Thompson, Laurence E. (1965). *A Vietnamese reference grammar*. Seattle: University of Washington Press.
 
-Vũ, T. P. (1982). Phonetic properties of Vietnamese tones across dialects. In *Papers in Southeast Asian Linguistics Volume 8 - Tonation*, ed. D. Bradley. Sydney, Australian National University, pp. 55-75.
+Vũ, T. P. (1982). Phonetic properties of Vietnamese tones across dialects. In *Papers in Southeast Asian Linguistics Volume 8 - Tonation*, ed. D. Bradley, pp. 55-75. Canberra: Pacific Linguistics.
