@@ -237,7 +237,7 @@ Emerich, Giang H. (2012). *The Vietnamese vowel system*. PhD dissertation, Unive
 
 Hoàng Thị Châu. (1989). *Tiếng Việt trên các miền đất nước: Phương ngữ học*. Hà Nội: Khoa học Xã hội.
 
-Kirby, James. (2011). "Vietnamese (Hanoi Vietnamese). *Journal of the International Phonetic Association" 41(3), 381-392.
+Kirby, James. (2011). "Vietnamese (Hanoi Vietnamese)". *Journal of the International Phonetic Association* 41(3), 381-392.
 
 Michaud, Alexis. (2004). Final consonants and glottalization: New perspectives from Hanoi Vietnamese. *Phonetica* 61, 119-146.
 
