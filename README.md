@@ -170,7 +170,7 @@ The representational issue of vowel length is vexed. Phonetically, Vietnamese di
 
 ### Tones
 
-vPhon represents tone using one of two methods. By default, vPhon returns tones using "Gedney"-style notation (A1, A2, B1...) following Michaud (2004) and Brunelle (2015). In this system each tone receives a combination of a letter and a number. The *A* tones derive from historically open syllables, *B* tones derive from creaky syllables and syllables originally closed by a glottal stop, *C* tones derive from syllables with final spirants (-h), and *D* tones from historically `checked' syllables, i.e. those with obstruent coda. *1* is used for tones found on syllables that originally had a voiceless onset and *2* is used for syllables that originally had a voiced onset.
+vPhon represents tone using one of two methods. By default, vPhon returns tones using "Gedney"-style notation (A1, A2, B1...) following Michaud (2004) and Brunelle (2015). In this system each tone receives a combination of a letter and a number. The *A* tones derive from historically open syllables, *B* tones derive from creaky syllables and syllables originally closed by a glottal stop, *C* tones derive from syllables with final spirants (-h), and *D* tones from historically "checked" syllables, i.e. those with obstruent coda. *1* is used for tones found on syllables that originally had a voiceless onset and *2* is used for syllables that originally had a voiced onset.
 
 If passed the `--chao` flag, vPhon will instead return Chao tone numbers as given the table below, which are based on Alves (2007), Hoàng Thị Châu (1989), Nguyễn Văn Lợi and Edmonson (1997), Nguyễn Văn Lợi (2012), and Vũ (1982). Note that, especially for Central (Huế) speech, a wide range of proposals abound: see Nguyễn Văn Lợi (2012) for some discussion.
 
@@ -195,7 +195,7 @@ Regardless of method, for the Central and Southern dialects, orthographic *hỏi
 
 ### Southern/Central
 
-- The Northern diphthongs [ie ɨə uo] are represented as long [i: ɨː uː], contrasting with the monophthongs [i ɨ u].
+- The Northern diphthongs /ie ɨə uo/ are represented as long /i: ɨː uː/, contrasting with the monophthongs /i ɨ u/.
 - /i e/ are realized [ɨ ə] before surface coronals.
 - On the surface, short back vowels are centralized in closed syllables.
 - The hyperformal contrast between /s/ *x* and /ʂ/ *s* only preserved if `--phonemic` is used.
