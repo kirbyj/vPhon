@@ -29,12 +29,15 @@ vPhon was designed to work in a manner similar to that of Unix command line util
 [user@terminal]$ cat text/tuoi.txt | python vPhon.py --dialect s
 ```
 
-If no input is provided, vPhon will enter an interactive mode allowing you to enter UTF-8 Vietnamese orthography on the command line. When you are done, send `EOF` (Ctrl-D) to get the output. By default, output is sent to STDOUT. If you are using Windows `cmd.exe` you may need to set your shell encoding first in order for redirection to function properly:
+If no input is provided, vPhon will enter an interactive mode allowing you to enter UTF-8 Vietnamese orthography on the command line. When you are done, send `EOF` (Ctrl-D) to get the output. By default, output is sent to STDOUT. If you are using Windows `cmd.exe` you may need to set your shell encoding first in order for redirection to function properly, e.g. using a `.bat` file like the following:
 
 ```
 chcp 65001
 set PYTHONIOENCODING=utf-8
+python vPhon.py < %1
 ```
+
+
 
 ## Options
 
