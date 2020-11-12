@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## [2.1.1] - 2020-11-12
+### Added
+- -8 option to output Chinese-style tone classes
+- "o" dialect option which produces a spelling pronunication (best used in combination with -8 -n -g -p flags) 
+
 ## [2.1.0] - 2020-07-21
 ### Added
 - Major re-write of script logic - now generates internal G2P representation as basis for all output types
