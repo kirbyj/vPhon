@@ -21,20 +21,19 @@
 import sys, re, io, string, argparse
 from rules import *
 
-def trans(word, dialect, chao, nosuper, glottal, phonemic):
+def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
 
     ## 
     # Setup
     ##
 
-    #six_tones = six_s_lower if nosuper else six_s_super 
+    eight_tones = eight_lower if nosuper else eight_super 
     if dialect == 's':
         chao_tones = chao_s_lower if nosuper else chao_s_super
     elif dialect == 'c':
         chao_tones = chao_c_lower if nosuper else chao_c_super
     else:
         chao_tones = chao_n_lower if nosuper else chao_n_super
-    #    six_tones = six_n_lower if nosuper else six_n_super 
 
     # Set variable for surface phonetic representation of labiodorsal finals
     ld_nas = 'ŋ͡m' #if nosuper else 'ŋᵐ' 
@@ -141,9 +140,9 @@ def trans(word, dialect, chao, nosuper, glottal, phonemic):
         if (ton == 'B1' and cod in ['p', 't', 'c', 'k']): ton = 'D1'
         if (ton == 'B2' and cod in ['p', 't', 'c', 'k']): ton = 'D2'
 
-        #if six:
-        #    ton = six_tones[ton]
-        if chao:
+        if eight:
+            ton = eight_tones[ton]
+        elif chao:
             ton = chao_tones[ton]
         else:
             if not nosuper: ton = gedney_super[ton]
@@ -298,7 +297,7 @@ def trans(word, dialect, chao, nosuper, glottal, phonemic):
         return (ons, gli, nuc, cod, ton)
 
 
-def convert(word, dialect, chao, nosuper, glottal, phonemic, delimit):
+def convert(word, dialect, chao, eight, nosuper, glottal, phonemic, delimit):
     """Convert a single orthographic string to IPA."""
 
     ons = ''
@@ -309,7 +308,7 @@ def convert(word, dialect, chao, nosuper, glottal, phonemic, delimit):
     seq = ''
 
     try:
-        (ons, gli, nuc, cod, ton) = trans(word, dialect, chao, nosuper, glottal, phonemic)
+        (ons, gli, nuc, cod, ton) = trans(word, dialect, chao, eight, nosuper, glottal, phonemic)
         if None in (ons, gli, nuc, cod, ton):
             seq = '['+word+']'
         else:
@@ -328,7 +327,7 @@ def main():
     glottal = False
     phonemic = False
     output_ortho = '' 
-    #six = False
+    eight = False
     tokenize = False
 
     # Command line options
@@ -336,7 +335,7 @@ def main():
     parser.add_argument("-d", "--dialect", choices=["n","c","s"], help="Specify dialect region (Northern, Central, Southern)", type = str.lower)
     parser.add_argument("-c", "--chao", action="store_true", help="Phonetize tones as Chao values")
     parser.add_argument("-g", "--glottal", action="store_true", help="No glottal stops in underlying forms")
-    #parser.add_argument("-6", "--six", action="store_true", help="Phonetize tones as 1-6")
+    parser.add_argument("-8", "--eight", action="store_true", help="Encode tones as 1-8")
     parser.add_argument("-n", "--nosuper", action="store_true", help="No superscripts anywhere")
     parser.add_argument("-p", "--phonemic", action="store_true", help="Underlying transcriptions after Pham (2006)")
     parser.add_argument("-m", "--delimit", action="store", type=str, help="produce delimited output (bi ca = .b.i.33. .k.a.33.)")
@@ -358,8 +357,8 @@ def main():
         phonemic = True
     if args.output_ortho:
         output_ortho = args.output_ortho
-    #if args.six:
-    #    six = True
+    if args.eight:
+        eight = True
     if args.tokenize:
         tokenize = True
 
@@ -390,10 +389,10 @@ def main():
                     substrings = re.split(r'(_|-)', word)
                     values = substrings[::2]
                     delimiters = substrings[1::2] + ['']
-                    ipa = [convert(x, dialect, chao, nosuper, glottal, phonemic, delimit).strip() for x in values]
+                    ipa = [convert(x, dialect, chao, eight, nosuper, glottal, phonemic, delimit).strip() for x in values]
                     seq = ''.join(v+d for v,d in zip(ipa, delimiters))
                 else:
-                    seq = convert(word, dialect, chao, nosuper, glottal, phonemic, delimit).strip()
+                    seq = convert(word, dialect, chao, eight, nosuper, glottal, phonemic, delimit).strip()
                 # concatenate
                 if len(words) >= 2:
                     ortho += ' '

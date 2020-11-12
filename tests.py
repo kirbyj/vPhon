@@ -5,7 +5,7 @@ from glob import glob
 
 # not doing full range of tests at the moment but should, eventually
 dialects = ['n', 's', 'c']
-tones = ['', '-c']
+tones = ['', '-c', '-8']
 reps = ['', '-p']
 lower = ['']
 glottal = ['']
