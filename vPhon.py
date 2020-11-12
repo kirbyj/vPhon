@@ -147,6 +147,7 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
         else:
             if not nosuper: ton = gedney_super[ton]
 
+
         ##
         # Generate internal G2P representation
         ## 
@@ -154,15 +155,26 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
         # If flagged, delete predictable glottal onsets
         if glottal and ons == 'ʔ': ons = ''
 
-        # Capture vowel/coda interactions of ɛ/ɛː and e/eː
-        if cod in ['ŋ', 'k']:
-            if nuc == 'ɛ': nuc = 'ɛː'
-            if nuc == 'e': nuc = 'eː'
 
-        # Velar fronting
-        if nuc == 'aː':
-            if cod == 'c': nuc = 'ɛ'
-            if cod == 'ɲ': nuc = 'ɛ'
+        # Ignore some transforms if producign spelling pronunciation output
+    
+        if not dialect == 'o':
+
+            # Capture vowel/coda interactions of ɛ/ɛː and e/eː
+            if cod in ['ŋ', 'k']:
+                if nuc == 'ɛ': nuc = 'ɛː'
+                if nuc == 'e': nuc = 'eː'
+
+            # Velar fronting
+            if nuc == 'aː':
+                if cod == 'c': nuc = 'ɛ'
+                if cod == 'ɲ': nuc = 'ɛ'
+
+        else:
+
+            if word[0:2] in 'gi': ons = 'ʑ'
+            if ons in ['j']: ons = 'z'
+
 
         ##
         # Northern
@@ -212,7 +224,7 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
         # Central/Southern
         ##
 
-        else:
+        elif dialect in ['s', 'c']:
             if ons == 'z': ons = 'j'
             if ons == 'k' and gli == lv_gli: ons = 'w'; gli = ''
             if ons == 'ɣ': ons = 'ɡ'
@@ -332,7 +344,7 @@ def main():
 
     # Command line options
     parser = argparse.ArgumentParser(description = "python vPhon.py")
-    parser.add_argument("-d", "--dialect", choices=["n","c","s"], help="Specify dialect region (Northern, Central, Southern)", type = str.lower)
+    parser.add_argument("-d", "--dialect", choices=["n","c","s","o"], help="Specify dialect region (Northern, Central, Southern) or spelling pronunciation", type = str.lower)
     parser.add_argument("-c", "--chao", action="store_true", help="Phonetize tones as Chao values")
     parser.add_argument("-g", "--glottal", action="store_true", help="No glottal stops in underlying forms")
     parser.add_argument("-8", "--eight", action="store_true", help="Encode tones as 1-8")
