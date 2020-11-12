@@ -2,7 +2,7 @@
 
 # vPhon: a Vietnamese phonetizer
 
-Package: vPhon version 2.1.0
+Package: vPhon version 2.1.1
 
 Author: James Kirby <j.kirby@ed.ac.uk>
 
@@ -36,16 +36,18 @@ If no input is provided, vPhon will enter an interactive mode allowing you to en
 The full list of options can be seen by using the `-h, --help` flag:
 
 ```
-usage: vPhon.py [-h] [-d {n,c,s}] [-c] [-g] [-6] [-n] [-p] [-m DELIMIT]
+usage: vPhon.py [-h] [-d {n,c,s,o}] [-c] [-g] [-8] [-n] [-p] [-m DELIMIT]
                 [-o OUTPUT_ORTHO] [-t]
 
 python vPhon.py
 
 optional arguments:
   -h, --help            show this help message and exit
-  -d {n,c,s}, --dialect {n,c,s}
+  -d {n,c,s,o}, --dialect {n,c,s,o}
                         Specify dialect region (Northern, Central, Southern)
+						or spelling pronunciation
   -c, --chao            Phonetize tones as Chao values
+  -8, --eight           Encode tones as 1-8
   -g, --glottal         No glottal stops in underlying forms
   -n, --nosuper         No superscripts anywhere
   -p, --phonemic        Underlying transcriptions after Pham (2006)
@@ -57,7 +59,9 @@ optional arguments:
                         (anh_ta = anhᴬ¹_taᴬ¹)
 ```
 
-vPhon's default behavior is to produce narrow (surface) Northern dialect forms, including glottal onsets, with tones in [Gedney-style superscript](#tones). The `--chao` flag will output superscript Chao tone numbers. If you would like to supress the superscripts (also for labialization), use the `--nosuper` flag:
+vPhon's default behavior is to produce narrow (surface) Northern dialect forms, including glottal onsets, with tones in [Gedney-style superscript](#tones). The `--chao` flag will output superscript Chao tone numbers. The `-8` flag will encode tones "Chinese-style", i.e. as digits from 1 to 8. 
+
+The default is to output tones, aspiration, and labialization as superscripts. If you would like to supress the superscripts (also for labialization), use the `--nosuper` flag:
 
 ```
 [user@terminal]$ python vPhon.py --chao --nosuper < text/wordlist-top.txt 
@@ -203,6 +207,10 @@ Regardless of method, for the Central and Southern dialects, orthographic *hỏi
 - Following Brunelle (2015), orthographic *tr* is /ʈ/ and <ch> is /c/.
 - Pham (2006) represents non-labial finals as placeless in these dialects; vPhon simply implements the merger in both the underlying and surface forms.
 - It is not clear that "Central Vietnamese" is a meaningful construct. Even a careful study of the speech of Huế city has not been carried out for some time. When invoked with `-d c`, vPhon simply produces segmental forms as for Southern Vietnamese with Chao tone numbers basically following Nguyễn Văn Lợi (2012).
+
+### Spelling pronunciation (experimental)
+
+Supplying the `o` option to the `--dialect` argument will generate a kind of spelling pronunication, where no phonological rules are applied and most spelling differences are translated into unique phones. This is best used in concert with the `-p` flag.
 
 ### Things not currently represented
 
