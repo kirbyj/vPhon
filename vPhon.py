@@ -48,6 +48,9 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
 
     # Set case for aspirated coronal onset
     if nosuper: onsets['th'] = 'th'
+    
+    # Set case for most <qu> words
+    if nosuper: onsets['qu'] = 'kw'
         
     ons = ''
     gli = ''
