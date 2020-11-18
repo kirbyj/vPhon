@@ -97,7 +97,7 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
 
         # Deal with gi and giêng
         if word[0:2] in gi:
-            if length == 2: nucl = 'i'
+            if length == 2 or (length == 3 and word[2] in ['n', 'm']): nucl = 'i'
             else: nucl = 'iê' if word[2] in ['ê', 'ế', 'ề', 'ể', 'ễ', 'ệ'] else nucl
             ons = onsets['gi']
 
