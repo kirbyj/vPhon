@@ -116,6 +116,7 @@ onoffglides = { 'oai' : 'aːj', 'oái' : 'aːj', 'oài' : 'aːj', 'oải' : 'aː
 
 codas = {   'c' : 'k', 
             'ch' : 'c',
+            'k' : 'k',
             'm' : 'm', 
             'n' : 'n', 
             'ng' : 'ŋ', 
