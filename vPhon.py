@@ -98,8 +98,7 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
         # Deal with gi and giêng
         if word[0:2] in gi:
             if length == 2 or (length == 3 and word[2] in ['n', 'm']): nucl = 'i'
-            else: nucl = 'iê' if word[2] in ['ê', 'ế', 'ề', 'ể', 'ễ', 'ệ'] else nucl
-            ons = onsets['gi']
+            elif nucl in nuclei and word[2] in ['ê', 'ế', 'ề', 'ể', 'ễ', 'ệ']: nucl = 'iê' 
 
         ##
         # Vowels
@@ -159,7 +158,7 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
         if glottal and ons == 'ʔ': ons = ''
 
 
-        # Ignore some transforms if producign spelling pronunciation output
+        # Ignore some transforms if producing spelling pronunciation output
     
         if not dialect == 'o':
 
@@ -175,6 +174,7 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
 
         else:
 
+            print(onset, nucl, coda, tone)
             if word[0:2] in 'gi': ons = 'ʑ'
             if ons in ['j']: ons = 'z'
 
