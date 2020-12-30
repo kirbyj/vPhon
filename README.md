@@ -239,7 +239,7 @@ If you use vPhon for a project or paper, please cite it as:
 
 ## Thank You
 
-Thanks to Mark Alves, Luke Bradley, Marc Brunelle, Doug Cooper, James Myers, Nguyễn Thúy Nhã Uyên, and Paul Sidwell for many useful comments and suggestions, and to [Branislav Gerazov](https://github.com/gerazov) and Jia-Cing Ruan (阮家慶) for motivating me to finally make vPhon compatible with Python 3. Any errors or inconsistencies are, of course, mine alone, but I would love to hear about them.
+Thanks to Mark Alves, Luke Bradley, Marc Brunelle, Doug Cooper, James Myers, Nguyễn Thúy Nhã Uyên, and Paul Sidwell for many useful comments and suggestions, and to [Branislav Gerazov](https://github.com/gerazov) and Jia-Cing Ruan (阮家慶) for motivating me to finally make vPhon compatible with Python 3. Any errors or inconsistencies are, of course, mine alone, but I would [love to hear about them](https://github.com/kirbyj/vPhon/issues).
 
 ## References
 
