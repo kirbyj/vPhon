@@ -175,10 +175,8 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
 
         else:
 
-            print(onset, nucl, coda, tone)
             if word[0:2] in 'gi': ons = 'ʑ'
             if ons in ['j']: ons = 'z'
-
 
         ##
         # Northern
@@ -301,10 +299,11 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
         # Universal UR modifications
         ##
         
-        # Shorten long monophthongs in open syllables for UR
-        if phonemic and not cod and nuc in ['aː', 'əː']:
-            if nuc == 'aː': nuc = 'a'
-            if nuc == 'əː': nuc = 'ə'
+        # Shorten long monophthongs in open syllables for UR unless spelling pronunciation
+        if not dialect == 'o':
+            if phonemic and not cod and nuc in ['aː', 'əː']:
+                if nuc == 'aː': nuc = 'a'
+                if nuc == 'əː': nuc = 'ə'
 
         ## 
         # All done
