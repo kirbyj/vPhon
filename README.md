@@ -178,7 +178,7 @@ For onsets and codas, vPhon uses the transcription proposed in Brunelle (2015), 
 
 In narrow phonetic output, the labiodorsal allophones of /ŋ k/ are represented as [ŋ͡m k͡p].
 
-The representational issue of vowel length is vexed. Phonetically, Vietnamese distinguishes (At least) 3 surface vowel lengths, predictable to a large extent on the basis of syllable structure (see Emerich 2012 for some phonetic data on the realization of vowel length in Northern Vietnamese). Phonologically, however, only 2 degrees of vowel length are contrastive, and then only in certain contexts. For typographic simplicity, many authors (e.g. Kirby 2011, Brunelle 2015) will indicates the (phonetically and phonologically) short vowels <â> <ă> with a brevis, i.e. [ə̆ ă], and leave other vowels unmarked for length on the surface, but this solution is less suitable for Southern varieties. For consistency, from version 2.1 vPhon follows IPA convention and eschews the brevis, so that in the surface (phonetic) representations, phonetically short vowels are unmarked and long vowels are indicated as such with a length diacritic (e.g. [aː]).
+The representational issue of vowel length is vexed. Phonetically, Vietnamese distinguishes (at least) 3 surface vowel lengths, predictable to a large extent on the basis of syllable structure (see Emerich 2012 for some phonetic data on the realization of vowel length in Northern Vietnamese). Phonologically, however, only 2 degrees of vowel length are contrastive, and then only in certain contexts. For typographic simplicity, many authors (e.g. Kirby 2011, Brunelle 2015) will indicates the (phonetically and phonologically) short vowels <â> <ă> with a brevis, i.e. [ə̆ ă], and leave other vowels unmarked for length on the surface, but this solution is less suitable for Southern varieties. For consistency, from version 2.1 vPhon follows IPA convention and eschews the brevis, so that in the surface (phonetic) representations, phonetically short vowels are unmarked and long vowels are indicated as such with a length diacritic (e.g. [aː]).
 
 ### Tones
 
@@ -212,7 +212,7 @@ Regardless of method, for the Central and Southern dialects, orthographic *hỏi
 - On the surface, short back vowels are centralized in closed syllables.
 - The hyperformal contrast between /s/ *x* and /ʂ/ *s* only preserved if `--phonemic` is used.
 - Orthographic *v* is merged with *j* in the surface output only.
-- Following Brunelle (2015), orthographic *tr* is /ʈ/ and <ch> is /c/.
+- Following Brunelle (2015), orthographic *tr* is /ʈ/ and *ch* is /c/.
 - Pham (2006) represents non-labial finals as placeless in these dialects; vPhon simply implements the merger in both the underlying and surface forms.
 - It is not clear that "Central Vietnamese" is a meaningful construct. Even a careful study of the speech of Huế city has not been carried out for some time. When invoked with `-d c`, vPhon simply produces segmental forms as for Southern Vietnamese with Chao tone numbers basically following Nguyễn Văn Lợi (2012).
 
@@ -239,7 +239,7 @@ If you use vPhon for a project or paper, please cite it as:
 
 ## Thank You
 
-Thanks to Mark Alves, Luke Bradley, Marc Brunelle, Doug Cooper, James Myers, Nguyễn Thúy Nhã Uyên, and Paul Sidwell for many useful comments and suggestions, and to [Branislav Gerazov](https://github.com/gerazov) and Jia-Cing Ruan (阮家慶) for motivating me to finally make vPhon compatible with Python 3. Any errors or inconsistencies are, of course, mine alone, but I would love to hear about them.
+Thanks to Mark Alves, Luke Bradley, Marc Brunelle, Doug Cooper, James Myers, Nguyễn Thúy Nhã Uyên, and Paul Sidwell for many useful comments and suggestions, and to [Branislav Gerazov](https://github.com/gerazov) and Jia-Cing Ruan (阮家慶) for motivating me to finally make vPhon compatible with Python 3. Any errors or inconsistencies are, of course, mine alone, but I would [love to hear about them](https://github.com/kirbyj/vPhon/issues).
 
 ## References
 
