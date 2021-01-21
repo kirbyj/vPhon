@@ -116,8 +116,12 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
                 ons = 'w'                       # add a labiovelar onset
 
         elif nucl in onoffglides:
-            cod = onoffglides[nucl][-1]
+            if ons != 'ʔ':                      # if there is a (non-glottal) onset...
+                ons = ons+lv_gli                # labialize it, but...
+            else:                               # if there is no onset...
+                ons = 'w'                       # add a labiovelar onset
             nuc = onoffglides[nucl][0:-1]
+            cod = onoffglides[nucl][-1]
 
         elif nucl in offglides:
             cod = offglides[nucl][-1]
