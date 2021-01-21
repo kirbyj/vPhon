@@ -1,5 +1,10 @@
 # CHANGELOG
 
+### Fixed
+- A few edge cases where some rare orthographic sequences were being rejected
+- Some nuclei not being properly parsed when onset = <gi>
+- Bug where syllables with both on and offglides were being phonetized without onglide
+
 ## [2.1.1] - 2020-11-12
 ### Added
 - -8 option to output Chinese-style tone classes
