@@ -134,6 +134,8 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
         # Deal with other labialized onsets
         #if ons == 'kʷ': ons = 'k'; gli = lv_gli
         if len(ons) == 2 and ons[1] == lv_gli: ons = ons[0]; gli = lv_gli
+        #if ons == 'tʰʷ': ons = 'tʰ'; gli = lv_gli
+        if len(ons) == 3 and ons[2] == lv_gli: ons = ons[0:2]; gli = lv_gli
 
         ##
         # Tones
