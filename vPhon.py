@@ -427,7 +427,7 @@ def main():
             else:
                 ortho = ortho.strip()
                 # print orthography?
-                if output_ortho: print(ortho, output_ortho)
+                if output_ortho: print(ortho, output_ortho, sep= '', end='')
                 print(compound)
 
     # if we have an open filehandle, close it
