@@ -95,9 +95,10 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
             nuc = qu[word][-1]
             if len(qu[word]) > 2: gli = lv_gli
 
-        # Deal with gi and giêng
+        # Deal with gi, giền and giêng
         if word[0:2] in gi:
-            if length == 2 or (length == 3 and word[2] in ['n', 'm']): nucl = 'i'
+            if word == 'giền': nucl = 'â' # See Emeneau 1951: 30
+            elif length == 2 or (length == 3 and word[2] in ['n', 'm']): nucl = 'i'
             elif nucl in nuclei and word[2] in ['ê', 'ế', 'ề', 'ể', 'ễ', 'ệ']: nucl = 'iê' 
             ons = onsets['gi']
 
