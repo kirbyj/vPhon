@@ -165,6 +165,10 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
         # If flagged, delete predictable glottal onsets
         if glottal and ons == 'ʔ': ons = ''
 
+        # Velar fronting
+        if nuc == 'aː':
+            if cod == 'c': nuc = 'ɛ'
+            if cod == 'ɲ': nuc = 'ɛ'
 
         # Ignore some transforms if producing spelling pronunciation output
     
@@ -174,11 +178,6 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
             if cod in ['ŋ', 'k']:
                 if nuc == 'ɛ': nuc = 'ɛː'
                 if nuc == 'e': nuc = 'eː'
-
-            # Velar fronting
-            if nuc == 'aː':
-                if cod == 'c': nuc = 'ɛ'
-                if cod == 'ɲ': nuc = 'ɛ'
 
         else:
 
@@ -190,6 +189,13 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
         ##
 
         # Transform internal G2P to UR
+        if dialect in ['n', 'o']:
+
+            # No surface palatal codas
+            if cod in ['c', 'ɲ']:
+                if cod == 'c': cod = 'k'
+                if cod == 'ɲ': cod = 'ŋ'
+
         if dialect == 'n':
 
             # Onset mergers
@@ -198,9 +204,10 @@ def trans(word, dialect, chao, eight, nosuper, glottal, phonemic):
             elif ons == 'ʂ': ons = 's'
 
             # No surface palatal codas
-            if cod in ['c', 'ɲ']:
-                if cod == 'c': cod = 'k'
-                if cod == 'ɲ': cod = 'ŋ'
+            # Moved above
+            #if cod in ['c', 'ɲ']:
+            #    if cod == 'c': cod = 'k'
+            #    if cod == 'ɲ': cod = 'ŋ'
 
             # Now, if generating SRs (default), apply rules
             if not phonemic:
