@@ -4,7 +4,7 @@
 
 Package: vPhon version 2.1.1
 
-Author: James Kirby <j.kirby@ed.ac.uk>
+Author: James Kirby <jkirby@phonetik.uni-muenchen.de>
 
 Web: [https://github.com/kirbyj/vPhon](https://github.com/kirbyj/vPhon)
 
