@@ -251,6 +251,8 @@ Cao Xuân Hạo. (1998). *Tiếng Việt – Mấy vấn đề ngữ âm, ngữ 
 
 Emerich, Giang H. (2012). *The Vietnamese vowel system*. PhD dissertation, University of Pennsylvania.
 
+Haudricourt, André-Georges. 1952. Les voyelles bréves du viêtnamien. Bulletin de la Société de Linguistique de Paris 48. 90-3.
+
 Hoàng Thị Châu. (1989). *Tiếng Việt trên các miền đất nước: Phương ngữ học*. Hà Nội: NXB Khoa học Xã hội.
 
 Kirby, James. (2011). Vietnamese (Hanoi Vietnamese). *Journal of the International Phonetic Association* 41(3), 381-392.
