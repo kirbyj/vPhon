@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/kirbyj/vPhon.svg?branch=master)](https://travis-ci.com/kirbyj/vPhon)
+[![Build Status](https://api.travis-ci.com/kirbyj/vPhon.svg?branch=master)](https://travis-ci.com/kirbyj/vPhon)
 
 # vPhon: a Vietnamese phonetizer
 
